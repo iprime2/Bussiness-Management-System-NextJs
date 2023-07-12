@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Creditor{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  firmName  String
+  ownerName String
+  panNumber Int
+  phone     Int
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  purchase Purchase[] 
+}
+
+model Debitor{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  firmName  String
+  ownerName String
+  panNumber Int
+  phone     Int
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sales Sales[]
+}
+
+model PurchaseProduct{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  weight    Int
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+
+  purchase Purchase[]
+}
+
+model SaleProduct{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  weight    Int
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+
+  sales Sales[] 
+}
+
+model Purchase{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int
+  price     Int
+  pricePaid Int
+  paid      Boolean
+  proudctId String @db.ObjectId
+  CreditorId String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  purchaseProducts PurchaseProduct @relation(fields: [proudctId], references: [id])
+  creditor Creditor @relation(fields: [CreditorId], references: [id]) 
+}
+
+model Sales{
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int
+  price     Int
+  pricePaid Int
+  paid      Boolean
+  devitorId String @db.ObjectId
+  saleProductId String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  debitor Debitor @relation(fields: [devitorId], references: [id])
+  saleProducts SaleProduct @relation(fields: [saleProductId], references: [id])
+}
+
