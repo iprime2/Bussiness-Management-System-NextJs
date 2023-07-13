@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import { Toaster } from '@/components/ui/toaster'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
+        <Toaster />
         <Navbar />
         {children}
       </body>

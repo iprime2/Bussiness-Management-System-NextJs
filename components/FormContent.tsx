@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import axios from 'axios'
 
 import { Trash } from 'lucide-react'
 
@@ -22,12 +23,14 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import AlertModal from './modals/AlertModal'
+import { Toast, ToastAction } from './ui/toast'
+import { toast } from './ui/use-toast'
 
 interface FormContentProps {
   data: Creditor | null
   type: string
 }
-
 
 const FormContent: FC<FormContentProps> = ({ data, type }) => {
   const [open, setOpen] = useState(false)
@@ -46,8 +49,6 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
     defaultValues: data
       ? {
           ...data,
-          panNumber: parseFloat(String(data?.panNumber)),
-          phone: parseFloat(String(data?.phone)),
         }
       : {
           firmName: '',
@@ -59,11 +60,55 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
   })
 
   const onSubmit = async (data: CreditorValueType) => {
-    console.log(data)
+    try {
+      setLoading(true)
+      await axios.post(`/api/creditors`, data)
+      toast({
+        description: 'Creditor Created',
+      })
+
+      router.push(`/creditors`)
+    } catch (error) {
+      console.log(error)
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request.',
+        action: <ToastAction altText='Try again'>Try again</ToastAction>,
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const onDelete = async () => {
+    try {
+      setLoading(true)
+      await axios.delete(`/api/creditors/${params.creditorId}`)
+      router.refresh()
+      router.push(`/creditors`)
+      toast({ title: `${type} deleted.` })
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request.',
+        action: <ToastAction altText='Try again'>Try again</ToastAction>,
+      })
+    } finally {
+      setLoading(false)
+      setOpen(false)
+    }
   }
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
       <div className='flex items-center justify-between'>
         <Heading title={title} description={description} />
         {data && (

@@ -12,6 +12,10 @@ const Navbar: FC<NavbarProps> = ({}) => {
         <div>
           <MainNav />
         </div>
+        <div
+          className='flex items-center ml-auto border-slate-200
+        p-2 rounded-sm'
+        ></div>
       </div>
     </div>
   )

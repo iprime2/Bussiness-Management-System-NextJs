@@ -7,13 +7,16 @@ import { useRouter } from 'next/navigation'
 import { Separator } from './ui/separator'
 import { Plus } from 'lucide-react'
 import { DataTable } from './ui/DataTable'
+import { creditorsColumn } from '@/columns/creditorsColumn'
+import { SafeCreditors } from '@/types'
 
 interface PageContentProps {
   title: string
   description: string
+  data: SafeCreditors[]
 }
 
-const PageContent: FC<PageContentProps> = ({ title, description }) => {
+const PageContent: FC<PageContentProps> = ({ title, description, data }) => {
   const router = useRouter()
   return (
     <div className='flex-col'>
@@ -25,7 +28,7 @@ const PageContent: FC<PageContentProps> = ({ title, description }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey='name' columns={[]} data={[]} />
+      <DataTable searchKey='firmName' columns={creditorsColumn} data={data} />
     </div>
   )
 }

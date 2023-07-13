@@ -25,7 +25,7 @@ const MainNav = ({
       label: 'Creditors',
       active:
         pathname === `/creditors` ||
-        pathname === `/creditors/${params.billboardId}` ||
+        pathname === `/creditors/${params.creditorId}` ||
         pathname === `/creditors/new`,
     },
     {
@@ -40,7 +40,7 @@ const MainNav = ({
     <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)}>
       {routes.map((route) => (
         <Link
-          key='route.href'
+          key={route.href}
           href={route.href}
           className={cn(
             'text-sm font-medium transition-colors hover:text-primary',
