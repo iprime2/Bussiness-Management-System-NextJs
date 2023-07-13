@@ -8,7 +8,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
   return (
     <div className='border-b px-5 w-full py-3'>
       <div className='flex items-center gap-3'>
-        <h1 className='text-2xl'>Bam Bam Rice Mill</h1>
+        <h1 className='text-2xl'>BamBam</h1>
         <div>
           <MainNav />
         </div>
