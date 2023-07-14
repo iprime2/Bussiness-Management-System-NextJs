@@ -66,12 +66,6 @@ const MainNav = ({
         pathname === `/sales/${params.saleId}` ||
         pathname === `/sales/new`,
     },
-    {
-      key: 'Settings',
-      href: `/settings`,
-      label: 'Settings',
-      active: pathname === `/settings`,
-    },
   ]
 
   return (
@@ -79,13 +73,10 @@ const MainNav = ({
       <MenubarMenu>
         <MenubarTrigger className='flex items-center justify-center gap-2'>
           <Menu size={16} />
-          Menu
         </MenubarTrigger>
         <MenubarContent>
           {routes.map((route) => (
             <>
-              {route.label === 'Settings' && <MenubarSeparator />}
-
               <MenubarItem key={route.href} className='gap-8'>
                 <div>{route.active && <Check size={16} />}</div>
                 <Link
@@ -105,24 +96,6 @@ const MainNav = ({
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
-
-    // <nav className={cn('flex items-center space-x-4 lg:space-x-6', className)}>
-
-    //   {routes.map((route) => (
-    //     <Link
-    //       key={route.href}
-    //       href={route.href}
-    //       className={cn(
-    //         'text-sm font-medium transition-colors hover:text-primary',
-    //         route.active
-    //           ? 'text-black dark:text-white'
-    //           : 'text-muted-foreground'
-    //       )}
-    //     >
-    //       {route.label}
-    //     </Link>
-    //   ))}
-    // </nav>
   )
 }
 

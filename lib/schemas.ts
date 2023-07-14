@@ -10,3 +10,20 @@ export const creditorSchema = z.object({
 })
 
 export type CreditorValueType = z.infer<typeof creditorSchema>
+
+export const signUpSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  confirmPassword: z.string().min(8),
+  name: z.string().min(1),
+  image: z.string(),
+})
+
+export type SignUpValueType = z.infer<typeof signUpSchema>
+
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+})
+
+export type LoginValueType = z.infer<typeof loginSchema>

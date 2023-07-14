@@ -4,7 +4,6 @@ import { FC, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
 import axios from 'axios'
 
 import { Trash } from 'lucide-react'
@@ -24,7 +23,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
-import { Toast, ToastAction } from './ui/toast'
+import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
 
 interface FormContentProps {
@@ -64,7 +63,7 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
       setLoading(true)
       await axios.post(`/api/creditors`, data)
       toast({
-        description: 'Creditor Created',
+        description: toastMessage,
       })
 
       router.push(`/creditors`)
@@ -84,7 +83,7 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/creditors/${params.creditorId}`)
+      await axios.delete(`/api/creditors/${params?.creditorId}`)
       router.refresh()
       router.push(`/creditors`)
       toast({ title: `${type} deleted.` })

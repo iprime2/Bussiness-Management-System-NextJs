@@ -1,16 +1,14 @@
-import './globals.css'
+import Navbar from '@/components/Navbar'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
-import RegisterModal from '@/components/modals/RegisterModal'
-import LoginModal from '@/components/modals/LoginModal'
 import getCurrentUser from '@/actions/getCurrentuser'
 import { redirect } from 'next/navigation'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Welcome',
+  title: 'Dashboard',
   description: 'Business CMS',
 }
 
@@ -21,16 +19,15 @@ export default async function RootLayout({
 }) {
   const user = await getCurrentUser()
 
-  if (user) {
-    redirect('/dashboard')
+  if (!user) {
+    redirect('/')
   }
 
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <RegisterModal />
-        <LoginModal />
         <Toaster />
+        <Navbar />
         {children}
       </body>
     </html>
