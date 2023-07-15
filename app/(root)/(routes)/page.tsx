@@ -4,17 +4,17 @@ import { useEffect } from 'react'
 
 import { useLoginModal } from '@/hooks/useLoginModal'
 
-const RootPage = () => {
-  const user = false
-  const loginModal = useLoginModal()
+const SetupPage = () => {
+  const onOpen = useLoginModal((state) => state.onOpen)
+  const isOpen = useLoginModal((state) => state.isOpen)
 
   useEffect(() => {
-    if (!user) {
-      loginModal.onOpen()
+    if (!isOpen) {
+      onOpen()
     }
-  }, [user])
+  }, [isOpen, onOpen])
 
   return null
 }
 
-export default RootPage
+export default SetupPage

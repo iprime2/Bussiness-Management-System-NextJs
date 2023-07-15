@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import prismadb from '@/lib/prismadb'
 
 import bcrypt from 'bcrypt'
+import { NextResponse } from 'next/server'
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prismadb),
@@ -16,30 +17,36 @@ export const authOptions: AuthOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid credentials')
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error('Invalid credentials')
+          }
+
+          const user = await prismadb.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          })
+
+          if (!user || !user?.password) {
+            throw new Error('Invalid credentials')
+          }
+
+          const isCorrectedPassword = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+
+          if (!isCorrectedPassword) {
+            // throw new Error('Invalid Credentials')
+            throw new NextResponse('Invalid Credentials')
+          }
+
+          return user
+        } catch (error) {
+          console.log(error)
+          throw new Error('Internal Server Error')
         }
-
-        const user = await prismadb.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        })
-
-        if (!user || !user?.password) {
-          throw new Error('Invalid credentials')
-        }
-
-        const isCorrectedPassword = await bcrypt.compare(
-          credentials.password,
-          user.password
-        )
-
-        if (!isCorrectedPassword) {
-          throw new Error('Invalid Credentials')
-        }
-
-        return user
       },
     }),
   ],

@@ -36,7 +36,7 @@ const MainNav = ({
       label: 'Creditors',
       active:
         pathname === `/creditors` ||
-        pathname === `/creditors/${params.creditorId}` ||
+        pathname === `/creditors/${params?.creditorId}` ||
         pathname === `/creditors/new`,
     },
     {
@@ -45,7 +45,7 @@ const MainNav = ({
       label: 'Debtors',
       active:
         pathname === `/debtors` ||
-        pathname === `/debtors/${params.debtorId}` ||
+        pathname === `/debtors/${params?.debtorId}` ||
         pathname === `/debtors/new`,
     },
     {
@@ -54,7 +54,7 @@ const MainNav = ({
       label: 'Purchases',
       active:
         pathname === `/purchases` ||
-        pathname === `/purchases/${params.purchaseId}` ||
+        pathname === `/purchases/${params?.purchaseId}` ||
         pathname === `/purchases/new`,
     },
     {
@@ -63,7 +63,7 @@ const MainNav = ({
       label: 'Sales',
       active:
         pathname === `/sales` ||
-        pathname === `/sales/${params.saleId}` ||
+        pathname === `/sales/${params?.saleId}` ||
         pathname === `/sales/new`,
     },
   ]

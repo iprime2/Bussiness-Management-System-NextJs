@@ -1,6 +1,10 @@
+'use client'
+
 import { FC } from 'react'
 import Image from 'next/image'
 import { MoreVerticalIcon } from 'lucide-react'
+import { signOut } from 'next-auth/react'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,7 +40,14 @@ const AccountDropDown: FC<AccountDropDownProps> = ({}) => {
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Sign Out</DropdownMenuItem>
+          <DropdownMenuItem>
+            <p
+              className='cursor-pointer'
+              onClick={() => signOut({ callbackUrl: '/' })}
+            >
+              Sign Out
+            </p>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

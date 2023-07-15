@@ -59,9 +59,11 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
       redirect: false,
     }).then((callback) => {
       setLoading(false)
+      console.log(callback)
       if (callback?.ok) {
         toast({ description: 'Logged In' })
         loginModal.onClose()
+        router.refresh()
         router.push('/dashboard')
 
         if (callback?.error) {

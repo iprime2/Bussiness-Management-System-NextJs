@@ -4,6 +4,7 @@ import { Roboto } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
 import getCurrentUser from '@/actions/getCurrentuser'
 import { redirect } from 'next/navigation'
+import ClientOnly from '@/components/ClientOnly'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
@@ -24,12 +25,9 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang='en'>
-      <body className={roboto.className}>
-        <Toaster />
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <>
+      <Navbar />
+      {children}
+    </>
   )
 }
