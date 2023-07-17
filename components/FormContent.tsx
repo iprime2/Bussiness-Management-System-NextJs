@@ -25,13 +25,16 @@ import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
+import CreditorsForm from '@/forms'
 
 interface FormContentProps {
   data: Creditor | null
   type: string
+  urlType: string
+  id: string
 }
 
-const FormContent: FC<FormContentProps> = ({ data, type }) => {
+const FormContent: FC<FormContentProps> = ({ data, type, urlType, id }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -43,30 +46,32 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
   const params = useParams()
   const router = useRouter()
 
-  const form = useForm<CreditorValueType>({
-    resolver: zodResolver(creditorSchema),
-    defaultValues: data
-      ? {
-          ...data,
-        }
-      : {
-          firmName: '',
-          ownerName: '',
-          panNumber: 0,
-          phone: 0,
-          address: '',
-        },
-  })
+  // const form = useForm<CreditorValueType>({
+  //   resolver: zodResolver(creditorSchema),
+  //   defaultValues: data
+  //     ? {
+  //         ...data,
+  //       }
+  //     : {
+  //         firmName: '',
+  //         ownerName: '',
+  //         panNumber: 0,
+  //         phone: 0,
+  //         address: '',
+  //       },
+  // })
+
+  const form = CreditorsForm(data)
 
   const onSubmit = async (data: CreditorValueType) => {
     try {
       setLoading(true)
-      await axios.post(`/api/creditors`, data)
+      await axios.post(`/api/${urlType}`, data)
       toast({
         description: toastMessage,
       })
 
-      router.push(`/creditors`)
+      router.push(`/${urlType}`)
     } catch (error) {
       console.log(error)
       toast({
@@ -83,10 +88,10 @@ const FormContent: FC<FormContentProps> = ({ data, type }) => {
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/creditors/${params?.creditorId}`)
+      await axios.delete(`/api/${urlType}/${id}`)
       router.refresh()
       router.push(`/creditors`)
-      toast({ title: `${type} deleted.` })
+      toast({ title: `${urlType} deleted.` })
     } catch (error: any) {
       toast({
         variant: 'destructive',

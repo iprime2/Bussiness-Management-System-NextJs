@@ -15,18 +15,19 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { useParams, useRouter } from 'next/navigation'
-import { SafeCreditors } from '@/types'
 import { toast } from './ui/use-toast'
 import { ToastAction } from './ui/toast'
 import AlertModal from '@/components/modals/AlertModal'
+import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 
 interface CellActionProps {
-  data: SafeCreditors
+  data: CreditorsColumnsProps[]
 }
 
 const CellAction: FC<CellActionProps> = ({ data }) => {
   const router = useRouter()
   const params = useParams()
+  console.log(data)
 
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)

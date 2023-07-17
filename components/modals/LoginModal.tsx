@@ -59,21 +59,20 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
       redirect: false,
     }).then((callback) => {
       setLoading(false)
-      console.log(callback)
+
       if (callback?.ok) {
         toast({ description: 'Logged In' })
         loginModal.onClose()
-        router.refresh()
+        // router.refresh()
         router.push('/dashboard')
-
-        if (callback?.error) {
-          toast({
-            variant: 'destructive',
-            title: 'Uh oh! Login failed.',
-            description: 'There was a problem with your request.',
-            action: <ToastAction altText='Try again'>Try again</ToastAction>,
-          })
-        }
+      } else if (callback?.error) {
+        console.log(callback)
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Login failed.',
+          description: callback.error,
+          action: <ToastAction altText='Try again'>Try again</ToastAction>,
+        })
       }
     })
   }

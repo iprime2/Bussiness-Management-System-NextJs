@@ -3,7 +3,7 @@
 import CellAction from '@/components/CellAction'
 import { ColumnDef } from '@tanstack/react-table'
 
-export type CreditorsColumnsProps = {
+export type DebitorsColumnsProps = {
   id: string
   firmName: string
   ownerName: string
@@ -13,7 +13,7 @@ export type CreditorsColumnsProps = {
   createdAt: string
 }
 
-export const CreditorsColumns: ColumnDef<CreditorsColumnsProps>[] = [
+export const DebitorsColumns: ColumnDef<DebitorsColumnsProps>[] = [
   {
     accessorKey: 'firmName',
     header: 'Firm Name',
@@ -36,7 +36,7 @@ export const CreditorsColumns: ColumnDef<CreditorsColumnsProps>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: 'Created Date',
+    header: 'Date',
   },
   {
     header: 'Actions',

@@ -17,36 +17,30 @@ export const authOptions: AuthOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        try {
-          if (!credentials?.email || !credentials?.password) {
-            throw new Error('Invalid credentials')
-          }
-
-          const user = await prismadb.user.findUnique({
-            where: {
-              email: credentials.email,
-            },
-          })
-
-          if (!user || !user?.password) {
-            throw new Error('Invalid credentials')
-          }
-
-          const isCorrectedPassword = await bcrypt.compare(
-            credentials.password,
-            user.password
-          )
-
-          if (!isCorrectedPassword) {
-            // throw new Error('Invalid Credentials')
-            throw new NextResponse('Invalid Credentials')
-          }
-
-          return user
-        } catch (error) {
-          console.log(error)
-          throw new Error('Internal Server Error')
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('All fields required!')
         }
+
+        const user = await prismadb.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        })
+
+        if (!user || !user?.password) {
+          throw new Error('User not found! Please register or check your email')
+        }
+
+        const isCorrectedPassword = await bcrypt.compare(
+          credentials.password,
+          user.password
+        )
+
+        if (!isCorrectedPassword) {
+          throw new Error('Password is Invalid!')
+        }
+
+        return user
       },
     }),
   ],

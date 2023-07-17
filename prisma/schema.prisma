@@ -35,7 +35,7 @@ model Creditor{
   purchase Purchase[] 
 }
 
-model Debitor{
+model Debtor{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   firmName  String
   ownerName String
@@ -99,7 +99,7 @@ model Sales{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  debitor Debitor @relation(fields: [devitorId], references: [id])
+  debtor Debtor @relation(fields: [devitorId], references: [id])
   saleProducts SaleProduct @relation(fields: [saleProductId], references: [id])
 }
 

@@ -26,9 +26,9 @@ const MainNav = ({
   const routes = [
     {
       key: 'Overview',
-      href: `/`,
+      href: `/dashboard`,
       label: 'Overview',
-      active: pathname === `/`,
+      active: pathname === `/dashboard`,
     },
     {
       key: 'Creditor',
@@ -40,13 +40,13 @@ const MainNav = ({
         pathname === `/creditors/new`,
     },
     {
-      key: 'Debtor',
-      href: `/debtors`,
-      label: 'Debtors',
+      key: 'Debitor',
+      href: `/debitors`,
+      label: 'Debitors',
       active:
-        pathname === `/debtors` ||
-        pathname === `/debtors/${params?.debtorId}` ||
-        pathname === `/debtors/new`,
+        pathname === `/debitors` ||
+        pathname === `/debitors/${params?.debitorId}` ||
+        pathname === `/debitors/new`,
     },
     {
       key: 'Purchase',
