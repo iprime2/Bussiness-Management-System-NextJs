@@ -25,16 +25,24 @@ import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
-import CreditorsForm from '@/forms'
+import { useCreditorsForm } from '@/forms'
+import { AnyARecord } from 'dns'
 
 interface FormContentProps {
   data: Creditor | null
   type: string
   urlType: string
   id: string
+  formType: ReturnType<typeof useCreditorsForm>
 }
 
-const FormContent: FC<FormContentProps> = ({ data, type, urlType, id }) => {
+const FormContent: FC<FormContentProps> = ({
+  data,
+  type,
+  urlType,
+  id,
+  formType,
+}) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -46,27 +54,16 @@ const FormContent: FC<FormContentProps> = ({ data, type, urlType, id }) => {
   const params = useParams()
   const router = useRouter()
 
-  // const form = useForm<CreditorValueType>({
-  //   resolver: zodResolver(creditorSchema),
-  //   defaultValues: data
-  //     ? {
-  //         ...data,
-  //       }
-  //     : {
-  //         firmName: '',
-  //         ownerName: '',
-  //         panNumber: 0,
-  //         phone: 0,
-  //         address: '',
-  //       },
-  // })
-
-  const form = CreditorsForm(data)
+  const form = formType
 
   const onSubmit = async (data: CreditorValueType) => {
     try {
       setLoading(true)
-      await axios.post(`/api/${urlType}`, data)
+      if (data) {
+        await axios.patch(`/api/${urlType}/${id}`, data)
+      } else {
+        await axios.post(`/api/${urlType}`, data)
+      }
       toast({
         description: toastMessage,
       })

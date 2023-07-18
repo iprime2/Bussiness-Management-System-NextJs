@@ -26,7 +26,7 @@ model Creditor{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   firmName  String
   ownerName String
-  panNumber Int
+  panNumber Int 
   phone     Int
   address   String
   createdAt DateTime @default(now())

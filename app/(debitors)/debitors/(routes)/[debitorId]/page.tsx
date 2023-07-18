@@ -1,5 +1,6 @@
 import { getDebtor } from '@/actions/getDebtor'
 import FormContent from '@/components/FormContent'
+import { useDebitorsForm } from '@/forms'
 import { FC } from 'react'
 
 interface DebitorPageProps {
@@ -18,6 +19,7 @@ const DebitorPage: FC<DebitorPageProps> = async ({ params }) => {
           type='debitors'
           urlType='debtors'
           id={debitorId}
+          formType={useDebitorsForm(debitor)}
         />
       </div>
     </div>

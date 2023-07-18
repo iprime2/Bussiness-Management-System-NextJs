@@ -1,14 +1,20 @@
-import FormContent from '@/components/FormContent'
 import { FC } from 'react'
 import { getCreditor } from '@/actions/getCreditor'
+import { CreditorsForm } from '@/forms'
+import dynamic from 'next/dynamic'
 
 interface CreditorPageProps {
   params: { creditorId: string }
 }
 
+const FormContent = dynamic(() => import('@/components/FormContent'))
+
 const CreditorPage: FC<CreditorPageProps> = async ({ params }) => {
   const creditor = await getCreditor(params.creditorId)
   const creditorId = params.creditorId
+
+  const formType =
+    typeof window !== 'undefined' ? CreditorsForm(creditor) : null
 
   return (
     <div className='flex-col'>
@@ -18,6 +24,7 @@ const CreditorPage: FC<CreditorPageProps> = async ({ params }) => {
           type='Creditor'
           urlType='creditors'
           id={creditorId}
+          formType={formType}
         />
       </div>
     </div>
