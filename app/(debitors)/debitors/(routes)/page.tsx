@@ -1,9 +1,12 @@
-import { getDebtors } from '@/actions/getDebtors'
+import { FC } from 'react'
+import { format } from 'date-fns'
+
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 import { DebitorsColumns } from '@/columns/debtorsColumn'
+
+import { getDebtors } from '@/actions/getDebtors'
+
 import PageContent from '@/components/PageContent'
-import { format } from 'date-fns'
-import { FC } from 'react'
 
 interface DebitorsPageProps {}
 
@@ -29,6 +32,7 @@ const DebitorsPage: FC<DebitorsPageProps> = async ({}) => {
           data={formattedDebitors}
           type='debitors'
           columns={DebitorsColumns}
+          searchKey='firmName'
         />
       </div>
     </div>

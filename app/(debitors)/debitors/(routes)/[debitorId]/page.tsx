@@ -1,5 +1,9 @@
-import { getDebtor } from '@/actions/getDebtor'
 import { FC } from 'react'
+
+import { DebitorsProps } from '@/types'
+
+import { getDebtor } from '@/actions/getDebtor'
+
 import Converter from './components/Converter'
 
 interface DebitorPageProps {
@@ -14,7 +18,7 @@ const DebitorPage: FC<DebitorPageProps> = async ({ params }) => {
   return (
     <div className='flex-col'>
       <div className='flex-1 space-y-4 p-8 pt-6'>
-        <Converter data={debitor} id={debitorId} />
+        <Converter data={debitor as DebitorsProps} id={debitorId} />
       </div>
     </div>
   )

@@ -1,13 +1,14 @@
+import { FC } from 'react'
+import { format } from 'date-fns'
+
 import { getCreditors } from '@/actions/getCreditors'
+
+import PageContent from '@/components/PageContent'
+
 import {
   CreditorsColumns,
   CreditorsColumnsProps,
 } from '@/columns/creditorsColumn'
-import PageContent from '@/components/PageContent'
-
-import { FC } from 'react'
-import { format } from 'date-fns'
-import { useCreditorsForm } from '@/forms'
 
 interface CreditorsPageProps {}
 
@@ -32,6 +33,7 @@ const CreditorsPage: FC<CreditorsPageProps> = async ({}) => {
           columns={CreditorsColumns}
           data={formattedCreditors}
           type='creditors'
+          searchKey='firmName'
         />
       </div>
     </div>

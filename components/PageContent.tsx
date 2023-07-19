@@ -10,13 +10,17 @@ import { DataTable } from './ui/DataTable'
 import { SafeCreditors } from '@/types'
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 import { DebitorsColumnsProps } from '@/columns/debtorsColumn'
+import { ColumnDef } from '@tanstack/react-table'
 
 interface PageContentProps {
   title: string
   description: string
   data: CreditorsColumnsProps[] | DebitorsColumnsProps[]
   type: string
-  columns: any | null
+  columns:
+    | ColumnDef<CreditorsColumnsProps>[]
+    | ColumnDef<DebitorsColumnsProps>[]
+  searchKey: string
 }
 
 const PageContent: FC<PageContentProps> = ({
@@ -25,6 +29,7 @@ const PageContent: FC<PageContentProps> = ({
   title,
   description,
   data,
+  searchKey,
 }) => {
   const router = useRouter()
   return (
@@ -37,7 +42,7 @@ const PageContent: FC<PageContentProps> = ({
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey='firmName' columns={columns} data={data} />
+      <DataTable searchKey={searchKey} columns={columns} data={data} />
     </div>
   )
 }

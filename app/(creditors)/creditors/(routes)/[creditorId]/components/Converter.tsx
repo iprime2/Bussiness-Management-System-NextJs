@@ -2,23 +2,24 @@
 
 import { CreditorsForm } from '@/forms'
 import { FC } from 'react'
-import FormContent from '../../../../../../components/FormContent'
-import { Creditor } from '@prisma/client'
-import { SafeCreditors } from '@/types'
+import { CreditorsProps, DebitorsProps } from '@/types'
+import FormContent from '@/components/FormContent'
+import { creditorFields } from '@/formFields'
 
 interface ConverterProps {
   id: string
-  data?: SafeCreditors | null
+  data: CreditorsProps | DebitorsProps
 }
 
 const Converter: FC<ConverterProps> = ({ id, data }) => {
   return (
     <FormContent
-      data={data}
+      initialData={data}
       type='Creditor'
       urlType='creditors'
       id={id}
       formType={CreditorsForm(data)}
+      fieldArray={creditorFields}
     />
   )
 }

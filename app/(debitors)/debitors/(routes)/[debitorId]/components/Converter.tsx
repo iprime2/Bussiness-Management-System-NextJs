@@ -1,13 +1,16 @@
 'use client'
 
-import { DebitorsForm } from '@/forms'
 import { FC } from 'react'
-import FormContent from '../../../../../../components/FormContent'
-import { Debtor } from '@prisma/client'
+
+import { DebitorsProps } from '@/types'
+import { DebitorsForm } from '@/forms'
+import { debitorFields } from '@/formFields'
+
+import FormContent from '@/components/FormContent'
 
 interface ConverterProps {
   id: string
-  data?: Debtor[] | null
+  data: DebitorsProps
 }
 
 const Converter: FC<ConverterProps> = ({ id, data }) => {
@@ -18,6 +21,7 @@ const Converter: FC<ConverterProps> = ({ id, data }) => {
       urlType='debtors'
       id={id}
       formType={DebitorsForm(data)}
+      fieldArray={debitorFields}
     />
   )
 }

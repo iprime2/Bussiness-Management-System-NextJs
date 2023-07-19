@@ -2,14 +2,19 @@
 
 import { FC, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
+import { UseFormReturn } from 'react-hook-form'
 
 import { Trash } from 'lucide-react'
 
-import { Creditor, Debtor } from '@prisma/client'
-import { CreditorValueType, creditorSchema } from '@/lib/schemas'
+import { CreditorValueType, DebitorValueType } from '@/lib/schemas'
+import {
+  CreditorField,
+  CreditorsProps,
+  DebitorField,
+  DebitorsProps,
+} from '@/types'
+
 import Heading from './ui/Heading'
 import { Button } from './ui/button'
 import { Separator } from './ui/separator'
@@ -25,15 +30,14 @@ import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
-import { CreditorsForm } from '@/forms'
-import { SafeCreditors } from '@/types'
 
 interface FormContentProps {
-  initialData?: SafeCreditors | Debtor
+  initialData: CreditorsProps | DebitorsProps
   type: string
   urlType: string
   id: string
-  formType: ReturnType<typeof CreditorsForm>
+  formType: UseFormReturn<CreditorValueType | DebitorValueType>
+  fieldArray: CreditorField[] | DebitorField[]
 }
 
 const FormContent: FC<FormContentProps> = ({
@@ -42,6 +46,7 @@ const FormContent: FC<FormContentProps> = ({
   urlType,
   id,
   formType,
+  fieldArray,
 }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -56,7 +61,7 @@ const FormContent: FC<FormContentProps> = ({
 
   const form = formType
 
-  const onSubmit = async (data: CreditorValueType) => {
+  const onSubmit = async (data: CreditorValueType | DebitorValueType) => {
     try {
       setLoading(true)
       if (initialData) {
@@ -131,91 +136,26 @@ const FormContent: FC<FormContentProps> = ({
           className='space-y-8 w-full'
         >
           <div className='grid grid-cols-3 gap-8'>
-            <FormField
-              control={form.control}
-              name='firmName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Firm Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Firm name'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='ownerName'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Owner Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Owner Name'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='panNumber'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pan Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Pan Number'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='phone'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Phone Number'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='address'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Address'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {fieldArray.map((item: any) => (
+              <FormField
+                key={item.name}
+                control={form.control}
+                name={item.name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{item.label}</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder={item.placeholder}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
           </div>
           <Button disabled={loading} className='ml-auto' type='submit'>
             {action}

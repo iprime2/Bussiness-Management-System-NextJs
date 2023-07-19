@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { UseFormReturn, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
@@ -9,9 +9,11 @@ import {
   creditorSchema,
   debitorSchema,
 } from '@/lib/schemas'
-import { Creditor, Debtor } from '@prisma/client'
+import { CreditorsProps, DebitorsProps } from '@/types'
 
-export function CreditorsForm(data?: CreditorValueType | null): any {
+export function CreditorsForm(
+  data: CreditorsProps
+): UseFormReturn<CreditorValueType> {
   const defaultValues = data
     ? {
         ...data,
@@ -31,7 +33,9 @@ export function CreditorsForm(data?: CreditorValueType | null): any {
   return form
 }
 
-export function DebitorsForm(data?: Debtor[] | null): any {
+export function DebitorsForm(
+  data: DebitorsProps
+): UseFormReturn<DebitorValueType> {
   const defaultValues = data
     ? {
         ...data,

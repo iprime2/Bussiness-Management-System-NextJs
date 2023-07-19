@@ -66,6 +66,15 @@ const MainNav = ({
         pathname === `/sales/${params?.saleId}` ||
         pathname === `/sales/new`,
     },
+    {
+      key: 'Product',
+      href: `/products`,
+      label: 'Products',
+      active:
+        pathname === `/products` ||
+        pathname === `/products/${params?.productId}` ||
+        pathname === `/products/new`,
+    },
   ]
 
   return (
