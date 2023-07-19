@@ -41,6 +41,8 @@ export const CreditorsColumns: ColumnDef<CreditorsColumnsProps>[] = [
   {
     header: 'Actions',
     id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => (
+      <CellAction type='creditors' apiUrl='creditors' data={row.original} />
+    ),
   },
 ]

@@ -19,12 +19,15 @@ import { toast } from './ui/use-toast'
 import { ToastAction } from './ui/toast'
 import AlertModal from '@/components/modals/AlertModal'
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
+import { DebitorsColumnsProps } from '@/columns/debtorsColumn'
 
 interface CellActionProps {
-  data: CreditorsColumnsProps[]
+  data: CreditorsColumnsProps[] | DebitorsColumnsProps[]
+  type: string
+  apiUrl: string
 }
 
-const CellAction: FC<CellActionProps> = ({ data }) => {
+const CellAction: FC<CellActionProps> = ({ data, type, apiUrl }) => {
   const router = useRouter()
   const params = useParams()
 
@@ -42,7 +45,7 @@ const CellAction: FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/creditors/${data.id}`)
+      await axios.delete(`/api/${apiUrl}/${data.id}`)
       router.refresh()
       toast({ title: 'Deleted', description: 'Creditors Deleted Successfully' })
     } catch (error: any) {
@@ -79,9 +82,7 @@ const CellAction: FC<CellActionProps> = ({ data }) => {
             <Copy className='mr-2 h-4 w-4' />
             Copy Id
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => router.push(`/creditors/${data.id}`)}
-          >
+          <DropdownMenuItem onClick={() => router.push(`/${type}/${data.id}`)}>
             <Edit className='mr-2 h-4 w-4' />
             Update
           </DropdownMenuItem>

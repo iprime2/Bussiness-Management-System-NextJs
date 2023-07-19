@@ -11,6 +11,16 @@ export const creditorSchema = z.object({
 
 export type CreditorValueType = z.infer<typeof creditorSchema>
 
+export const debitorSchema = z.object({
+  firmName: z.string().min(1),
+  ownerName: z.string().min(1),
+  panNumber: z.coerce.number().min(1),
+  phone: z.coerce.number().min(1),
+  address: z.string().min(1),
+})
+
+export type DebitorValueType = z.infer<typeof debitorSchema>
+
 export const signUpSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),

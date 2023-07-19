@@ -8,7 +8,7 @@ import axios from 'axios'
 
 import { Trash } from 'lucide-react'
 
-import { Creditor } from '@prisma/client'
+import { Creditor, Debtor } from '@prisma/client'
 import { CreditorValueType, creditorSchema } from '@/lib/schemas'
 import Heading from './ui/Heading'
 import { Button } from './ui/button'
@@ -25,19 +25,19 @@ import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
-import { useCreditorsForm } from '@/forms'
-import { AnyARecord } from 'dns'
+import { CreditorsForm } from '@/forms'
+import { SafeCreditors } from '@/types'
 
 interface FormContentProps {
-  data: Creditor | null
+  initialData?: SafeCreditors | Debtor
   type: string
   urlType: string
   id: string
-  formType: ReturnType<typeof useCreditorsForm>
+  formType: ReturnType<typeof CreditorsForm>
 }
 
 const FormContent: FC<FormContentProps> = ({
-  data,
+  initialData,
   type,
   urlType,
   id,
@@ -46,10 +46,10 @@ const FormContent: FC<FormContentProps> = ({
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const title = data ? `Edit ${type}` : `Create ${type}`
-  const description = data ? `Edit a ${type}` : `Add new ${type}`
-  const toastMessage = data ? `${type} updated` : `${type} Created`
-  const action = data ? `Save changes` : `Create`
+  const title = initialData ? `Edit ${type}` : `Create ${type}`
+  const description = initialData ? `Edit a ${type}` : `Add new ${type}`
+  const toastMessage = initialData ? `${type} updated` : `${type} Created`
+  const action = initialData ? `Save changes` : `Create`
 
   const params = useParams()
   const router = useRouter()
@@ -59,7 +59,7 @@ const FormContent: FC<FormContentProps> = ({
   const onSubmit = async (data: CreditorValueType) => {
     try {
       setLoading(true)
-      if (data) {
+      if (initialData) {
         await axios.patch(`/api/${urlType}/${id}`, data)
       } else {
         await axios.post(`/api/${urlType}`, data)
@@ -69,6 +69,7 @@ const FormContent: FC<FormContentProps> = ({
       })
 
       router.push(`/${urlType}`)
+      router.refresh()
     } catch (error) {
       console.log(error)
       toast({
@@ -112,7 +113,7 @@ const FormContent: FC<FormContentProps> = ({
       />
       <div className='flex items-center justify-between'>
         <Heading title={title} description={description} />
-        {data && (
+        {initialData && (
           <Button
             disabled={loading}
             variant='destructive'

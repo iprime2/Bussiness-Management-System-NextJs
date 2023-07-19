@@ -1,7 +1,6 @@
 import { getDebtor } from '@/actions/getDebtor'
-import FormContent from '@/components/FormContent'
-import { useDebitorsForm } from '@/forms'
 import { FC } from 'react'
+import Converter from './components/Converter'
 
 interface DebitorPageProps {
   params: { debitorId: string }
@@ -10,17 +9,12 @@ interface DebitorPageProps {
 const DebitorPage: FC<DebitorPageProps> = async ({ params }) => {
   const debitor = await getDebtor(params.debitorId)
   const debitorId = params.debitorId
+  console.log(debitor)
 
   return (
     <div className='flex-col'>
       <div className='flex-1 space-y-4 p-8 pt-6'>
-        <FormContent
-          data={debitor}
-          type='debitors'
-          urlType='debtors'
-          id={debitorId}
-          formType={useDebitorsForm(debitor)}
-        />
+        <Converter data={debitor} id={debitorId} />
       </div>
     </div>
   )

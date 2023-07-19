@@ -3,10 +3,15 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { CreditorValueType, creditorSchema } from '@/lib/schemas'
-import { Creditor } from '@prisma/client'
+import {
+  CreditorValueType,
+  DebitorValueType,
+  creditorSchema,
+  debitorSchema,
+} from '@/lib/schemas'
+import { Creditor, Debtor } from '@prisma/client'
 
-const CreditorsForm = (data?: Creditor): ReturnType<typeof useForm> => {
+export function CreditorsForm(data?: CreditorValueType | null): any {
   const defaultValues = data
     ? {
         ...data,
@@ -26,7 +31,7 @@ const CreditorsForm = (data?: Creditor): ReturnType<typeof useForm> => {
   return form
 }
 
-const useDebitorsForm = (data?: Creditor): ReturnType<typeof useForm> => {
+export function DebitorsForm(data?: Debtor[] | null): any {
   const defaultValues = data
     ? {
         ...data,
@@ -38,12 +43,10 @@ const useDebitorsForm = (data?: Creditor): ReturnType<typeof useForm> => {
         phone: 0,
         address: '',
       }
-  const form = useForm<CreditorValueType>({
-    resolver: zodResolver(creditorSchema),
+  const form = useForm<DebitorValueType>({
+    resolver: zodResolver(debitorSchema),
     defaultValues,
   })
 
   return form
 }
-
-export { CreditorsForm, useDebitorsForm }
