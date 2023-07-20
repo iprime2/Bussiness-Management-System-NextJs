@@ -7,12 +7,18 @@ import { UseFormReturn } from 'react-hook-form'
 
 import { Trash } from 'lucide-react'
 
-import { CreditorValueType, DebitorValueType } from '@/lib/schemas'
+import {
+  CreditorValueType,
+  DebitorValueType,
+  ProductValueType,
+} from '@/lib/schemas'
 import {
   CreditorField,
   CreditorsProps,
   DebitorField,
   DebitorsProps,
+  ProductField,
+  ProductsProps,
 } from '@/types'
 
 import Heading from './ui/Heading'
@@ -32,12 +38,14 @@ import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
 
 interface FormContentProps {
-  initialData: CreditorsProps | DebitorsProps
+  initialData: CreditorsProps | DebitorsProps | ProductsProps
   type: string
   urlType: string
   id: string
-  formType: UseFormReturn<CreditorValueType | DebitorValueType>
-  fieldArray: CreditorField[] | DebitorField[]
+  formType: UseFormReturn<
+    CreditorValueType | DebitorValueType | ProductValueType
+  >
+  fieldArray: CreditorField[] | DebitorField[] | ProductField[]
 }
 
 const FormContent: FC<FormContentProps> = ({
@@ -61,7 +69,9 @@ const FormContent: FC<FormContentProps> = ({
 
   const form = formType
 
-  const onSubmit = async (data: CreditorValueType | DebitorValueType) => {
+  const onSubmit = async (
+    data: CreditorValueType | DebitorValueType | ProductValueType
+  ) => {
     try {
       setLoading(true)
       if (initialData) {

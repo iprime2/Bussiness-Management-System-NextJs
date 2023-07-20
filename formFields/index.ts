@@ -1,4 +1,4 @@
-import { CreditorField, DebitorField } from '@/types'
+import { CreditorField, DebitorField, ProductField } from '@/types'
 
 export const creditorFields: CreditorField[] = [
   {
@@ -72,6 +72,37 @@ export const debitorFields: DebitorField[] = [
     label: 'Address',
     type: 'text',
     placeholder: 'Enter Address',
+    required: true,
+  },
+]
+
+export const productFields: ProductField[] = [
+  {
+    name: 'name',
+    label: 'Name',
+    type: 'text',
+    placeholder: 'Enter Product Name',
+    required: true,
+  },
+  {
+    name: 'weight',
+    label: 'Weight',
+    type: 'number',
+    placeholder: 'Enter Product Weight',
+    required: true,
+  },
+  {
+    name: 'price',
+    label: 'Price',
+    type: 'number',
+    placeholder: 'Enter Product Price',
+    required: true,
+  },
+  {
+    name: 'type',
+    label: 'Type',
+    type: 'text',
+    placeholder: 'Enter Product Type',
     required: true,
   },
 ]

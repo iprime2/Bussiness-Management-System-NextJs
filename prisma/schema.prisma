@@ -65,8 +65,6 @@ model Product{
   name      String
   weight    Int
   price     Int
-  Date      DateTime
-  paid      Boolean
   type      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 

@@ -1,25 +1,31 @@
 'use client'
 
 import { FC } from 'react'
-import Heading from './ui/Heading'
-import { Button } from './ui/button'
+import { ColumnDef } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
-import { Separator } from './ui/separator'
 import { Plus } from 'lucide-react'
-import { DataTable } from './ui/DataTable'
-import { SafeCreditors } from '@/types'
+
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 import { DebitorsColumnsProps } from '@/columns/debtorsColumn'
-import { ColumnDef } from '@tanstack/react-table'
+import { ProductsColumnsProps } from '@/columns/productsColumn'
+
+import Heading from './ui/Heading'
+import { Button } from './ui/button'
+import { Separator } from './ui/separator'
+import { DataTable } from './ui/DataTable'
 
 interface PageContentProps {
   title: string
   description: string
-  data: CreditorsColumnsProps[] | DebitorsColumnsProps[]
+  data:
+    | CreditorsColumnsProps[]
+    | DebitorsColumnsProps[]
+    | ProductsColumnsProps[]
   type: string
   columns:
     | ColumnDef<CreditorsColumnsProps>[]
     | ColumnDef<DebitorsColumnsProps>[]
+    | ColumnDef<ProductsColumnsProps>[]
   searchKey: string
 }
 

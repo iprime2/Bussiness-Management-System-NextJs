@@ -37,12 +37,11 @@ export const debitorSchema = z.object({
 
 export type DebitorValueType = z.infer<typeof debitorSchema>
 
-// export const debitorSchema = z.object({
-//   firmName: z.string().min(1),
-//   ownerName: z.string().min(1),
-//   panNumber: z.coerce.number().min(1),
-//   phone: z.coerce.number().min(1),
-//   address: z.string().min(1),
-// })
+export const productSchema = z.object({
+  name: z.string().min(1),
+  price: z.coerce.number().min(1),
+  weight: z.coerce.number().min(1),
+  type: z.string().min(1),
+})
 
-// export type DebitorValueType = z.infer<typeof debitorSchema>
+export type ProductValueType = z.infer<typeof productSchema>

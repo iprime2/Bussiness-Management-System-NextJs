@@ -6,10 +6,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   CreditorValueType,
   DebitorValueType,
+  ProductValueType,
   creditorSchema,
   debitorSchema,
+  productSchema,
 } from '@/lib/schemas'
-import { CreditorsProps, DebitorsProps } from '@/types'
+import { CreditorsProps, DebitorsProps, ProductsProps } from '@/types'
 
 export function CreditorsForm(
   data: CreditorsProps
@@ -49,6 +51,27 @@ export function DebitorsForm(
       }
   const form = useForm<DebitorValueType>({
     resolver: zodResolver(debitorSchema),
+    defaultValues,
+  })
+
+  return form
+}
+
+export function ProductsForm(
+  data: ProductsProps
+): UseFormReturn<ProductValueType> {
+  const defaultValues = data
+    ? {
+        ...data,
+      }
+    : {
+        name: '',
+        weight: 0,
+        price: 0,
+        type: '',
+      }
+  const form = useForm<ProductValueType>({
+    resolver: zodResolver(productSchema),
     defaultValues,
   })
 
