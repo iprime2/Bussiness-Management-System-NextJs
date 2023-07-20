@@ -48,18 +48,7 @@ model Debtor{
   sales Sales[]
 }
 
-// model PurchaseProduct{
-//   id        String @id @default(auto()) @map("_id") @db.ObjectId
-//   name      String
-//   weight    Int
-//   price     Int
-//   Date      DateTime
-//   paid      Boolean
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt 
 
-//   purchase Purchase[]
-// }
 model Product{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   name      String
@@ -73,31 +62,22 @@ model Product{
   sales Sales[]
 }
 
-// model SaleProduct{
-//   id        String @id @default(auto()) @map("_id") @db.ObjectId
-//   name      String
-//   weight    Int
-//   price     Int
-//   paid      Boolean
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt 
-
-//   sales Sales[] 
-// }
 
 model Purchase{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   quantity  Int
   price     Int
   pricePaid Int
+  totalAmount     Int
+  totalWeight     Int
   paid      Boolean
+  paidThrough    String
   proudctId String @db.ObjectId
   CreditorId String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   product Product @relation(fields: [proudctId], references: [id])
-  // purchaseProducts PurchaseProduct @relation(fields: [proudctId], references: [id])
   creditor Creditor @relation(fields: [CreditorId], references: [id]) 
 }
 
@@ -106,15 +86,17 @@ model Sales{
   quantity  Int
   price     Int
   pricePaid Int
+  totalAmount     Int
+  totalWeight     Int
   paid      Boolean
-  devitorId String @db.ObjectId
+  paidThrough    String
+  debitorId String @db.ObjectId
   productId String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
 
   product Product @relation(fields: [productId], references: [id])
-  debtor Debtor @relation(fields: [devitorId], references: [id])
-  // saleProducts SaleProduct @relation(fields: [saleProductId], references: [id])
+  debtor Debtor @relation(fields: [debitorId], references: [id])
 }
 

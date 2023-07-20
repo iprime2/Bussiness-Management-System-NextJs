@@ -45,3 +45,33 @@ export const productSchema = z.object({
 })
 
 export type ProductValueType = z.infer<typeof productSchema>
+
+export const purchaseSchema = z.object({
+  firmName: z.string().min(1),
+  productType: z.string().min(1),
+  quantity: z.coerce.number().min(1),
+  weight: z.coerce.number().min(1),
+  price: z.coerce.number().min(1),
+  pricePaid: z.coerce.number().min(1),
+  totalAmount: z.coerce.number().min(1),
+  totalWeight: z.coerce.number().min(1),
+  paid: z.boolean(),
+  paidThrough: z.boolean(),
+})
+
+export type PurchaseValueType = z.infer<typeof purchaseSchema>
+
+export const salesSchema = z.object({
+  firmName: z.string().min(1),
+  productType: z.string().min(1),
+  quantity: z.coerce.number().min(1),
+  weight: z.coerce.number().min(1),
+  price: z.coerce.number().min(1),
+  pricePaid: z.coerce.number().min(1),
+  totalAmount: z.coerce.number().min(1),
+  totalWeight: z.coerce.number().min(1),
+  paid: z.boolean(),
+  paidThrough: z.boolean(),
+})
+
+export type SaleValueType = z.infer<typeof salesSchema>

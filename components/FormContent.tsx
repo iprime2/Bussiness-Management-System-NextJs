@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { UseFormReturn } from 'react-hook-form'
 
@@ -32,6 +32,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
@@ -64,7 +71,6 @@ const FormContent: FC<FormContentProps> = ({
   const toastMessage = initialData ? `${type} updated` : `${type} Created`
   const action = initialData ? `Save changes` : `Create`
 
-  const params = useParams()
   const router = useRouter()
 
   const form = formType
@@ -154,13 +160,34 @@ const FormContent: FC<FormContentProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{item.label}</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder={item.placeholder}
-                        {...field}
-                      />
-                    </FormControl>
+                    {item.type === 'select' ? (
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder='Product Type' />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {item.options.map((option: any) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <FormControl>
+                        <Input
+                          disabled={loading}
+                          placeholder={item.placeholder}
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+
                     <FormMessage />
                   </FormItem>
                 )}

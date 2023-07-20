@@ -7,11 +7,17 @@ import {
   CreditorValueType,
   DebitorValueType,
   ProductValueType,
+  PurchaseValueType,
+  SaleValueType,
   creditorSchema,
   debitorSchema,
   productSchema,
+  purchaseSchema,
+  salesSchema,
 } from '@/lib/schemas'
 import { CreditorsProps, DebitorsProps, ProductsProps } from '@/types'
+import { PurchasesColumnsProps } from '@/columns/purchasesColumn'
+import { SalesColumnsProps } from '@/columns/salesColumn'
 
 export function CreditorsForm(
   data: CreditorsProps
@@ -72,6 +78,60 @@ export function ProductsForm(
       }
   const form = useForm<ProductValueType>({
     resolver: zodResolver(productSchema),
+    defaultValues,
+  })
+
+  return form
+}
+
+export function PurchasesForm(
+  data: PurchasesColumnsProps
+): UseFormReturn<PurchaseValueType> {
+  const defaultValues = data
+    ? {
+        ...data,
+      }
+    : {
+        firmName: '',
+        productType: '',
+        quantity: 0,
+        weight: 0,
+        price: 0,
+        pricePaid: 0,
+        totalAmount: 0,
+        totalWeight: 0,
+        paid: false,
+        paidThrough: false,
+      }
+  const form = useForm<PurchaseValueType>({
+    resolver: zodResolver(purchaseSchema),
+    defaultValues,
+  })
+
+  return form
+}
+
+export function SalesForm(
+  data: SalesColumnsProps
+): UseFormReturn<SaleValueType> {
+  const defaultValues = data
+    ? {
+        ...data,
+      }
+    : {
+        firmName: '',
+        productType: '',
+        quantity: 0,
+        weight: 0,
+        price: 0,
+        pricePaid: 0,
+        totalAmount: 0,
+        totalWeight: 0,
+        paid: false,
+        paidThrough: false,
+      }
+  const form = useForm<SaleValueType>({
+    resolver: zodResolver(salesSchema),
     defaultValues,
   })
 

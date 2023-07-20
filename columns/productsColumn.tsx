@@ -18,12 +18,14 @@ export const ProductsColumns: ColumnDef<ProductsColumnsProps>[] = [
     header: 'Product Name',
   },
   {
-    accessorKey: 'weight',
+    id: 'weight',
     header: 'Weight in kg',
+    cell: ({ row }) => <span>{row.original.weight} k.g</span>,
   },
   {
-    accessorKey: 'price',
+    id: 'price',
     header: 'Price',
+    cell: ({ row }) => <span>₹ {row.original.price}</span>,
   },
   {
     accessorKey: 'type',

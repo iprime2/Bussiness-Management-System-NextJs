@@ -30,6 +30,38 @@ export interface ProductsProps {
   updatedAt: Date
 }
 
+export interface PurchaseProps {
+  id: string
+  quantity: number
+  price: number
+  pricePaid: number
+  totalAmount: number
+  totalWeight: number
+  paid: boolean
+  paidThrough: string
+  debitorId: boolean
+  productId: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface SalesProps {
+  id: string
+  quantity: number
+  price: number
+  pricePaid: number
+  totalAmount: number
+  totalWeight: number
+  paid: boolean
+  paidThrough: string
+  creditorId: boolean
+  productId: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+// Form fields  types
+
 export interface CreditorField {
   name: string
   label: string
@@ -49,7 +81,26 @@ export interface DebitorField {
 export interface ProductField {
   name: string
   label: string
-  type: 'text' | 'number'
+  type: 'text' | 'number' | 'select'
   placeholder: string
   required: boolean
+  options?: string[]
+}
+
+export interface PurchaseField {
+  name: string
+  label: string
+  type: 'text' | 'number' | 'select' | 'radio'
+  placeholder: string
+  required: boolean
+  options?: string[]
+}
+
+export interface SaleField {
+  name: string
+  label: string
+  type: 'text' | 'number' | 'select' | 'radio'
+  placeholder: string
+  required: boolean
+  options?: string[]
 }
