@@ -3,86 +3,120 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   req: Request,
-  { params }: { params: { creditorId: string } }
+  { params }: { params: { saleId: string } }
 ) {
   try {
-    const { creditorId } = params
+    const { saleId } = params
 
-    if (!creditorId) {
+    if (!saleId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
-    const creditor = await prismadb.creditor.findUnique({
+    const sale = await prismadb.sales.findUnique({
       where: {
-        id: creditorId,
+        id: saleId,
       },
     })
 
-    return NextResponse.json(creditor)
+    return NextResponse.json(sale)
   } catch (error) {
-    console.log('[CREDITOR_GET]', error)
+    console.log('[SALE_GET]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { creditorId: string } }
+  { params }: { params: { saleId: string } }
 ) {
   try {
-    const { creditorId } = params
+    const { saleId } = params
 
-    if (!creditorId) {
+    if (!saleId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
     const body = await req.json()
-    const { firmName, ownerName, panNumber, phone, address } = body
+    const {
+      debitorId,
+      productId,
+      ownerName,
+      quantity,
+      price,
+      pricePaid,
+      totalAmount,
+      totalWeight,
+      paid,
+      paidThrough,
+    } = body
 
-    if (!firmName || !ownerName || !panNumber || !phone || !address) {
+    if (
+      !debitorId ||
+      !productId ||
+      !ownerName ||
+      !quantity ||
+      !price ||
+      !pricePaid ||
+      !totalAmount ||
+      !totalWeight ||
+      !paid ||
+      !paidThrough
+    ) {
       return new NextResponse('All fields are required', { status: 400 })
     }
 
-    const creditor = await prismadb.creditor.update({
+    let paidType: boolean = false
+
+    if (paid === 'Yes') {
+      paidType = true
+    } else if (paid === 'No') {
+      paidType = false
+    }
+
+    const sale = await prismadb.sales.update({
       where: {
-        id: creditorId,
+        id: saleId,
       },
       data: {
-        firmName,
-        ownerName,
-        panNumber,
-        phone,
-        address,
+        quantity,
+        price,
+        pricePaid,
+        totalAmount,
+        totalWeight,
+        paid: paidType,
+        paidThrough,
+        debitorId,
+        productId,
       },
     })
 
-    return NextResponse.json(creditor)
+    return NextResponse.json(sale)
   } catch (error: any) {
-    console.log('[CREDITOR_PATCH]', error)
+    console.log('[SALE_PATCH]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { creditorId: string } }
+  { params }: { params: { saleId: string } }
 ) {
   try {
-    const { creditorId } = params
+    const { saleId } = params
 
-    if (!creditorId) {
+    if (!saleId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
-    const creditor = await prismadb.creditor.delete({
+    const sale = await prismadb.sales.delete({
       where: {
-        id: creditorId,
+        id: saleId,
       },
     })
 
-    return NextResponse.json(creditor)
+    return NextResponse.json(sale)
   } catch (error: any) {
-    console.log('[CREDITOR_DELETE]', error)
+    console.log('[SALE_DELETE]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

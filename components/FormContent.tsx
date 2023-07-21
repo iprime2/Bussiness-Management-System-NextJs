@@ -12,6 +12,7 @@ import {
   DebitorValueType,
   ProductValueType,
   PurchaseValueType,
+  SaleValueType,
 } from '@/lib/schemas'
 import {
   CreditorField,
@@ -22,6 +23,8 @@ import {
   ProductsProps,
   PurchaseField,
   PurchaseProps,
+  SaleField,
+  SalesProps,
 } from '@/types'
 
 import Heading from './ui/Heading'
@@ -48,18 +51,28 @@ import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
 
 interface FormContentProps {
-  initialData: CreditorsProps | DebitorsProps | ProductsProps | PurchaseProps
+  initialData:
+    | CreditorsProps
+    | DebitorsProps
+    | ProductsProps
+    | PurchaseProps
+    | SalesProps
   type: string
   urlType: string
   id: string
   formType: UseFormReturn<
-    CreditorValueType | DebitorValueType | ProductValueType | PurchaseValueType
+    | CreditorValueType
+    | DebitorValueType
+    | ProductValueType
+    | PurchaseValueType
+    | SaleValueType
   >
   fieldArray:
     | CreditorField[]
     | DebitorField[]
     | ProductField[]
     | PurchaseField[]
+    | SaleField[]
 }
 
 const FormContent: FC<FormContentProps> = ({
@@ -88,6 +101,7 @@ const FormContent: FC<FormContentProps> = ({
       | DebitorValueType
       | ProductValueType
       | PurchaseValueType
+      | SaleValueType
   ) => {
     console.log('hello')
     try {
@@ -180,7 +194,7 @@ const FormContent: FC<FormContentProps> = ({
                       >
                         <FormControl>
                           <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select' />
+                            <SelectValue placeholder={item.placeholder} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

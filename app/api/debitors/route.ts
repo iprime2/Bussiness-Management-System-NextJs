@@ -7,7 +7,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(debitors)
   } catch (error) {
-    console.log('[Debitor_GET]', error)
+    console.log('[DEBITORS_GET]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

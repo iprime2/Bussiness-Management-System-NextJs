@@ -81,22 +81,25 @@ const MainNav = ({
         </MenubarTrigger>
         <MenubarContent>
           {routes.map((route) => (
-            <>
-              <MenubarItem key={route.href} className='gap-8'>
-                <div>{route.active && <Check size={16} />}</div>
-                <Link
-                  href={route.href}
-                  className={cn(
-                    'text-sm font-medium transition-colors hover:text-primary',
-                    route.active
-                      ? 'text-black dark:text-white -ml-4'
-                      : 'text-muted-foreground'
-                  )}
-                >
-                  {route.label}
-                </Link>
+            <Link
+              key={route.href}
+              href={route.href}
+              className={cn(
+                'text-sm font-medium transition-colors hover:text-primary dark:hover:text-primary-dark',
+                route.active
+                  ? 'text-black dark:text-white '
+                  : 'text-muted-foreground'
+              )}
+            >
+              <MenubarItem
+                className={cn('hover:bg-slate-300 cursor-pointer gap-2')}
+              >
+                <div className='w-[10%]'>
+                  {route.active && <Check size={16} />}
+                </div>
+                {route.label}
               </MenubarItem>
-            </>
+            </Link>
           ))}
         </MenubarContent>
       </MenubarMenu>

@@ -8,7 +8,7 @@ import { productFields } from '@/formFields'
 
 interface ConverterProps {
   id: string
-  data: CreditorsProps | DebitorsProps | ProductsProps
+  data: ProductsProps
 }
 
 const Converter: FC<ConverterProps> = ({ id, data }) => {

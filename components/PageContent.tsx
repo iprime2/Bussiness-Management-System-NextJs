@@ -14,6 +14,7 @@ import Heading from './ui/Heading'
 import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 import { DataTable } from './ui/DataTable'
+import { SalesColumnsProps } from '@/columns/salesColumn'
 
 interface PageContentProps {
   title: string
@@ -23,12 +24,14 @@ interface PageContentProps {
     | DebitorsColumnsProps[]
     | ProductsColumnsProps[]
     | PurchasesColumnsProps[]
+    | SalesColumnsProps[]
   type: string
   columns:
     | ColumnDef<CreditorsColumnsProps>[]
     | ColumnDef<DebitorsColumnsProps>[]
     | ColumnDef<ProductsColumnsProps>[]
     | ColumnDef<PurchasesColumnsProps>[]
+    | ColumnDef<SalesColumnsProps>[]
   searchKey: string
 }
 

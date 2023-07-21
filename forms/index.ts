@@ -141,6 +141,11 @@ export function SalesForm(
     resolver: zodResolver(salesSchema),
     defaultValues,
   })
+    useEffect(() => {
+      const { pricePaid, totalWeight } = form.getValues()
+      const totalAmount = pricePaid * totalWeight
+      form.setValue('totalAmount', totalAmount)
+    }, [form.watch('pricePaid'), form.watch('totalWeight')])
 
   return form
 }

@@ -2,7 +2,7 @@
 
 import CellAction from '@/components/CellAction'
 import { ColumnDef } from '@tanstack/react-table'
-import { CheckCheckIcon, XCircleIcon } from 'lucide-react'
+import { CheckCircle2Icon, XCircleIcon } from 'lucide-react'
 
 export type SalesColumnsProps = {
   id: string
@@ -16,7 +16,6 @@ export type SalesColumnsProps = {
   paid: string
   paidThrough: string
   createdAt: string
-  updatedAt: string
 }
 
 export const SalesColumns: ColumnDef<SalesColumnsProps>[] = [
@@ -59,9 +58,9 @@ export const SalesColumns: ColumnDef<SalesColumnsProps>[] = [
     cell: ({ row }) => (
       <span>
         {row.original.paid ? (
-          <CheckCheckIcon size={12} />
+          <CheckCircle2Icon size={24} />
         ) : (
-          <XCircleIcon size={12} />
+          <XCircleIcon size={24} />
         )}
       </span>
     ),
@@ -69,7 +68,7 @@ export const SalesColumns: ColumnDef<SalesColumnsProps>[] = [
   {
     id: 'paidThrough',
     header: 'Paid Through',
-    cell: ({ row }) => <span>{row.original.paid}</span>,
+    cell: ({ row }) => <span>{row.original.paidThrough}</span>,
   },
   {
     accessorKey: 'createdAt',
@@ -79,7 +78,7 @@ export const SalesColumns: ColumnDef<SalesColumnsProps>[] = [
     header: 'Actions',
     id: 'actions',
     cell: ({ row }) => (
-      <CellAction type='products' apiUrl='products' data={row.original} />
+      <CellAction type='sales' apiUrl='sales' data={row.original} />
     ),
   },
 ]

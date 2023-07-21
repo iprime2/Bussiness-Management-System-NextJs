@@ -2,27 +2,26 @@
 
 import { FC } from 'react'
 
-import { PurchasesForm } from '@/forms'
-import { PurchaseProps } from '@/types'
-
-import { purchaseFields } from '@/formFields'
+import { SalesForm } from '@/forms'
+import { saleFields } from '@/formFields'
 
 import FormContent from '@/components/FormContent'
+import { SalesProps } from '@/types'
 
 interface ConverterProps {
   id: string
-  data: PurchaseProps
+  data: SalesProps
 }
 
 const Converter: FC<ConverterProps> = ({ id, data }) => {
   return (
     <FormContent
       initialData={data}
-      type='Purchase'
-      urlType='purchases'
+      type='Sale'
+      urlType='sales'
       id={id}
-      formType={PurchasesForm(data)}
-      fieldArray={purchaseFields}
+      formType={SalesForm(data)}
+      fieldArray={saleFields}
     />
   )
 }

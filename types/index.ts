@@ -48,17 +48,18 @@ export interface PurchaseProps {
 
 export interface SalesProps {
   id: string
+  firmName: string
+  productType: string
   quantity: number
   price: number
   pricePaid: number
   totalAmount: number
   totalWeight: number
-  paid: boolean
+  paid: string
   paidThrough: string
-  creditorId: string
+  debitorId: string
   productId: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
 }
 
 // Form fields  types
@@ -106,8 +107,8 @@ export interface PurchaseField {
 export interface SaleField {
   name: string
   label: string
-  type: 'text' | 'number' | 'select' | 'radio'
+  type: 'text' | 'number' | 'select'
   placeholder: string
   required: boolean
-  options?: string[]
+  options?: Options[] | (() => Promise<Options[]>)
 }
