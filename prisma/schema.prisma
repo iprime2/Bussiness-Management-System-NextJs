@@ -72,13 +72,13 @@ model Purchase{
   totalWeight     Int
   paid      Boolean
   paidThrough    String
-  proudctId String @db.ObjectId
-  CreditorId String @db.ObjectId
+  productId String @db.ObjectId
+  creditorId String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  product Product @relation(fields: [proudctId], references: [id])
-  creditor Creditor @relation(fields: [CreditorId], references: [id]) 
+  product Product @relation(fields: [productId], references: [id])
+  creditor Creditor @relation(fields: [creditorId], references: [id]) 
 }
 
 model Sales{

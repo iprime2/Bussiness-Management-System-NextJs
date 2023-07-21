@@ -32,17 +32,18 @@ export interface ProductsProps {
 
 export interface PurchaseProps {
   id: string
+  firmName: string
+  productType: string
   quantity: number
   price: number
   pricePaid: number
   totalAmount: number
   totalWeight: number
-  paid: boolean
+  paid: string
   paidThrough: string
-  debitorId: boolean
-  productId: boolean
-  createdAt: Date
-  updatedAt: Date
+  creditorId: string
+  productId: string
+  createdAt: string
 }
 
 export interface SalesProps {
@@ -54,8 +55,8 @@ export interface SalesProps {
   totalWeight: number
   paid: boolean
   paidThrough: string
-  creditorId: boolean
-  productId: boolean
+  creditorId: string
+  productId: string
   createdAt: Date
   updatedAt: Date
 }
@@ -78,22 +79,28 @@ export interface DebitorField {
   required: boolean
 }
 
+export type Options = {
+  id: number | string
+  name: string
+  value: boolean | string
+}
+
 export interface ProductField {
   name: string
   label: string
   type: 'text' | 'number' | 'select'
   placeholder: string
   required: boolean
-  options?: string[]
+  options?: Options[]
 }
 
 export interface PurchaseField {
   name: string
   label: string
-  type: 'text' | 'number' | 'select' | 'radio'
+  type: 'text' | 'number' | 'select'
   placeholder: string
   required: boolean
-  options?: string[]
+  options?: Options[] | (() => Promise<Options[]>)
 }
 
 export interface SaleField {

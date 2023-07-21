@@ -1,5 +1,6 @@
-import { PurchaseField } from './../types/index'
+import { Options, PurchaseField } from './../types/index'
 import { CreditorField, DebitorField, ProductField } from '@/types'
+import { Loader } from '@/components/ui/loader'
 
 export const creditorFields: CreditorField[] = [
   {
@@ -105,24 +106,67 @@ export const productFields: ProductField[] = [
     type: 'select',
     placeholder: 'Enter Product Type',
     required: true,
-    options: ['Sale', 'Purchase'],
+    options: [
+      { id: 1, name: 'Sale', value: 'Sale' },
+      { id: 2, name: 'Purchase', value: 'Purchase' },
+    ],
   },
 ]
 
+let firmNameData: Options[] = []
+async function getFirmName() {
+  try {
+    const response = await fetch('/api/creditors')
+    const data = await response.json()
+
+    data.map((item: any) =>
+      firmNameData.push({ name: item.firmName, id: item.id, value: item.id })
+    )
+    return firmNameData
+  } catch (error) {
+    console.error('Error fetching firm names:', error)
+    return []
+  }
+}
+getFirmName()
+
+let productTypeData: Options[] = []
+async function getProductType() {
+  try {
+    const response = await fetch('/api/products')
+    const data = await response.json()
+
+    data.map(
+      (item: any) =>
+        item.type === 'Purchase' &&
+        productTypeData.push({ name: item.name, id: item.id, value: item.id })
+    )
+    return productTypeData
+  } catch (error) {
+    console.error('Error fetching firm names:', error)
+    return []
+  }
+}
+getProductType()
+
 export const purchaseFields: PurchaseField[] = [
   {
-    name: 'Firm Name',
-    label: 'firmName',
+    name: 'creditorId',
+    label: 'Firm Name',
     type: 'select',
     placeholder: 'Select Firm',
     required: true,
+    options: firmNameData
+      ? firmNameData
+      : [{ id: 1, name: 'Loading...', value: 'Loading...' }],
   },
   {
-    name: 'productType',
+    name: 'productId',
     label: 'Product',
     type: 'select',
     placeholder: 'Select Product',
     required: true,
+    options: productTypeData,
   },
   {
     name: 'quantity',
@@ -163,15 +207,25 @@ export const purchaseFields: PurchaseField[] = [
   {
     name: 'paid',
     label: 'Paid',
-    type: 'radio',
+    type: 'select',
     placeholder: 'Select',
     required: true,
+    options: [
+      { id: 1, name: 'Yes', value: 'Yes' },
+      { id: 2, name: 'No', value: 'No' },
+    ],
   },
   {
     name: 'paidThrough',
     label: 'Paid In',
-    type: 'radio',
+    type: 'select',
     placeholder: 'Select',
     required: true,
+    options: [
+      { id: 1, name: 'Cash', value: 'Cash' },
+      { id: 2, name: 'Cheque', value: 'Cheque' },
+      { id: 3, name: 'Bank', value: 'Bank' },
+      { id: 4, name: 'Credit', value: 'Credit' },
+    ],
   },
 ]

@@ -11,6 +11,7 @@ import {
   CreditorValueType,
   DebitorValueType,
   ProductValueType,
+  PurchaseValueType,
 } from '@/lib/schemas'
 import {
   CreditorField,
@@ -19,6 +20,8 @@ import {
   DebitorsProps,
   ProductField,
   ProductsProps,
+  PurchaseField,
+  PurchaseProps,
 } from '@/types'
 
 import Heading from './ui/Heading'
@@ -45,14 +48,18 @@ import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
 
 interface FormContentProps {
-  initialData: CreditorsProps | DebitorsProps | ProductsProps
+  initialData: CreditorsProps | DebitorsProps | ProductsProps | PurchaseProps
   type: string
   urlType: string
   id: string
   formType: UseFormReturn<
-    CreditorValueType | DebitorValueType | ProductValueType
+    CreditorValueType | DebitorValueType | ProductValueType | PurchaseValueType
   >
-  fieldArray: CreditorField[] | DebitorField[] | ProductField[]
+  fieldArray:
+    | CreditorField[]
+    | DebitorField[]
+    | ProductField[]
+    | PurchaseField[]
 }
 
 const FormContent: FC<FormContentProps> = ({
@@ -76,10 +83,16 @@ const FormContent: FC<FormContentProps> = ({
   const form = formType
 
   const onSubmit = async (
-    data: CreditorValueType | DebitorValueType | ProductValueType
+    data:
+      | CreditorValueType
+      | DebitorValueType
+      | ProductValueType
+      | PurchaseValueType
   ) => {
+    console.log('hello')
     try {
       setLoading(true)
+
       if (initialData) {
         await axios.patch(`/api/${urlType}/${id}`, data)
       } else {
@@ -166,14 +179,14 @@ const FormContent: FC<FormContentProps> = ({
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder='Product Type' />
+                          <SelectTrigger className='w-full'>
+                            <SelectValue placeholder='Select' />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {item.options.map((option: any) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
+                          {item?.options?.map((option: any) => (
+                            <SelectItem key={option.name} value={option.value}>
+                              {option.name}
                             </SelectItem>
                           ))}
                         </SelectContent>

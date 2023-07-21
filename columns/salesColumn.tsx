@@ -2,12 +2,7 @@
 
 import CellAction from '@/components/CellAction'
 import { ColumnDef } from '@tanstack/react-table'
-import {
-  BanknoteIcon,
-  CheckCheckIcon,
-  LandmarkIcon,
-  XCircleIcon,
-} from 'lucide-react'
+import { CheckCheckIcon, XCircleIcon } from 'lucide-react'
 
 export type SalesColumnsProps = {
   id: string
@@ -18,8 +13,8 @@ export type SalesColumnsProps = {
   pricePaid: number
   totalAmount: number
   totalWeight: number
-  paid: boolean
-  paidThrough: boolean
+  paid: string
+  paidThrough: string
   createdAt: string
   updatedAt: string
 }
@@ -74,15 +69,7 @@ export const SalesColumns: ColumnDef<SalesColumnsProps>[] = [
   {
     id: 'paidThrough',
     header: 'Paid Through',
-    cell: ({ row }) => (
-      <span>
-        {row.original.paid ? (
-          <BanknoteIcon size={12} />
-        ) : (
-          <LandmarkIcon size={12} />
-        )}
-      </span>
-    ),
+    cell: ({ row }) => <span>{row.original.paid}</span>,
   },
   {
     accessorKey: 'createdAt',

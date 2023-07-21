@@ -13,15 +13,16 @@ export type PurchasesColumnsProps = {
   id: string
   firmName: string
   productType: string
+  creditorId: string
+  productId: string
   quantity: number
   price: number
   pricePaid: number
   totalAmount: number
   totalWeight: number
-  paid: boolean
-  paidThrough: boolean
+  paid: string
+  paidThrough: string
   createdAt: string
-  updatedAt: string
 }
 
 export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
@@ -63,7 +64,7 @@ export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
     header: 'Paid',
     cell: ({ row }) => (
       <span>
-        {row.original.paid ? (
+        {row.original.paid === 'Yes' ? (
           <CheckCheckIcon size={12} />
         ) : (
           <XCircleIcon size={12} />
@@ -74,15 +75,7 @@ export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
   {
     id: 'paidThrough',
     header: 'Paid Through',
-    cell: ({ row }) => (
-      <span>
-        {row.original.paid ? (
-          <BanknoteIcon size={12} />
-        ) : (
-          <LandmarkIcon size={12} />
-        )}
-      </span>
-    ),
+    cell: ({ row }) => <span>{row.original.paid}</span>,
   },
   {
     accessorKey: 'createdAt',

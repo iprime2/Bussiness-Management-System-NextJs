@@ -92,16 +92,16 @@ export function PurchasesForm(
         ...data,
       }
     : {
-        firmName: '',
-        productType: '',
+        creditorId: '',
+        productId: '',
         quantity: 0,
         weight: 0,
         price: 0,
         pricePaid: 0,
         totalAmount: 0,
         totalWeight: 0,
-        paid: false,
-        paidThrough: false,
+        paid: '',
+        paidThrough: '',
       }
   const form = useForm<PurchaseValueType>({
     resolver: zodResolver(purchaseSchema),
@@ -127,8 +127,8 @@ export function SalesForm(
         pricePaid: 0,
         totalAmount: 0,
         totalWeight: 0,
-        paid: false,
-        paidThrough: false,
+        paid: '',
+        paidThrough: '',
       }
   const form = useForm<SaleValueType>({
     resolver: zodResolver(salesSchema),

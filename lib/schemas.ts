@@ -55,8 +55,8 @@ export const purchaseSchema = z.object({
   pricePaid: z.coerce.number().min(1),
   totalAmount: z.coerce.number().min(1),
   totalWeight: z.coerce.number().min(1),
-  paid: z.boolean(),
-  paidThrough: z.boolean(),
+  paid: z.string().min(1),
+  paidThrough: z.string().min(1),
 })
 
 export type PurchaseValueType = z.infer<typeof purchaseSchema>
@@ -70,8 +70,8 @@ export const salesSchema = z.object({
   pricePaid: z.coerce.number().min(1),
   totalAmount: z.coerce.number().min(1),
   totalWeight: z.coerce.number().min(1),
-  paid: z.boolean(),
-  paidThrough: z.boolean(),
+  paid: z.string().min(1),
+  paidThrough: z.string().min(1),
 })
 
 export type SaleValueType = z.infer<typeof salesSchema>

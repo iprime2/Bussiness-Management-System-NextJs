@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react'
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 import { DebitorsColumnsProps } from '@/columns/debtorsColumn'
 import { ProductsColumnsProps } from '@/columns/productsColumn'
+import { PurchasesColumnsProps } from '@/columns/purchasesColumn'
 
 import Heading from './ui/Heading'
 import { Button } from './ui/button'
@@ -21,11 +22,13 @@ interface PageContentProps {
     | CreditorsColumnsProps[]
     | DebitorsColumnsProps[]
     | ProductsColumnsProps[]
+    | PurchasesColumnsProps[]
   type: string
   columns:
     | ColumnDef<CreditorsColumnsProps>[]
     | ColumnDef<DebitorsColumnsProps>[]
     | ColumnDef<ProductsColumnsProps>[]
+    | ColumnDef<PurchasesColumnsProps>[]
   searchKey: string
 }
 
