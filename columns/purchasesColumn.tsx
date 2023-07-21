@@ -1,13 +1,10 @@
 'use client'
 
-import CellAction from '@/components/CellAction'
 import { ColumnDef } from '@tanstack/react-table'
-import {
-  BanknoteIcon,
-  CheckCheckIcon,
-  LandmarkIcon,
-  XCircleIcon,
-} from 'lucide-react'
+
+import { CheckCircle2Icon, XCircleIcon } from 'lucide-react'
+
+import CellAction from '@/components/CellAction'
 
 export type PurchasesColumnsProps = {
   id: string
@@ -65,9 +62,9 @@ export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
     cell: ({ row }) => (
       <span>
         {row.original.paid === 'Yes' ? (
-          <CheckCheckIcon size={12} />
+          <CheckCircle2Icon size={24} />
         ) : (
-          <XCircleIcon size={12} />
+          <XCircleIcon size={24} />
         )}
       </span>
     ),
@@ -75,7 +72,7 @@ export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
   {
     id: 'paidThrough',
     header: 'Paid Through',
-    cell: ({ row }) => <span>{row.original.paid}</span>,
+    cell: ({ row }) => <span>{row.original.paidThrough}</span>,
   },
   {
     accessorKey: 'createdAt',

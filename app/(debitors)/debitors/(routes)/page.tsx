@@ -1,19 +1,20 @@
 import { FC } from 'react'
 import { format } from 'date-fns'
 
-import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
-import { DebitorsColumns } from '@/columns/debtorsColumn'
+import { DebitorsColumnsProps } from '@/columns/debitorsColumn'
 
-import { getDebtors } from '@/actions/getDebtors'
+import { DebitorsColumns } from '@/columns/debitorsColumn'
+
+import { getDebitors } from '@/actions/getDebitors'
 
 import PageContent from '@/components/PageContent'
 
 interface DebitorsPageProps {}
 
 const DebitorsPage: FC<DebitorsPageProps> = async ({}) => {
-  const debitors = await getDebtors()
+  const debitors = await getDebitors()
 
-  const formattedDebitors: CreditorsColumnsProps[] = debitors.map((item) => ({
+  const formattedDebitors: DebitorsColumnsProps[] = debitors.map((item) => ({
     id: item.id,
     firmName: item.firmName,
     ownerName: item.ownerName,

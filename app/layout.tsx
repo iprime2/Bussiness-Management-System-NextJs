@@ -6,7 +6,6 @@ import RegisterModal from '@/components/modals/RegisterModal'
 import LoginModal from '@/components/modals/LoginModal'
 import ClientOnly from '@/components/ClientOnly'
 import getCurrentUser from '@/actions/getCurrentuser'
-import { redirect } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })

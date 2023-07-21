@@ -24,9 +24,9 @@ model User{
 
 model Creditor{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  firmName  String
+  firmName  String @unique
   ownerName String
-  panNumber Int 
+  panNumber Int @unique
   phone     Int
   address   String
   createdAt DateTime @default(now())
@@ -35,11 +35,11 @@ model Creditor{
   purchase Purchase[] 
 }
 
-model Debtor{
+model Debitor{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  firmName  String
+  firmName  String @unique
   ownerName String
-  panNumber Int
+  panNumber Int @unique
   phone     Int
   address   String
   createdAt DateTime @default(now())
@@ -51,7 +51,7 @@ model Debtor{
 
 model Product{
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  name      String @unique
   weight    Int
   price     Int
   type      String
@@ -64,39 +64,39 @@ model Product{
 
 
 model Purchase{
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  quantity  Int
-  price     Int
-  pricePaid Int
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity        Int
+  price           Int
+  pricePaid       Int
   totalAmount     Int
   totalWeight     Int
-  paid      Boolean
-  paidThrough    String
-  productId String @db.ObjectId
-  creditorId String @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  paid            Boolean
+  paidThrough     String
+  productId       String @db.ObjectId
+  creditorId      String @db.ObjectId
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   product Product @relation(fields: [productId], references: [id])
   creditor Creditor @relation(fields: [creditorId], references: [id]) 
 }
 
 model Sales{
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  quantity  Int
-  price     Int
-  pricePaid Int
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  quantity        Int
+  price           Int
+  pricePaid       Int
   totalAmount     Int
   totalWeight     Int
-  paid      Boolean
-  paidThrough    String
-  debitorId String @db.ObjectId
-  productId String @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  paid            Boolean
+  paidThrough     String
+  debitorId       String @db.ObjectId
+  productId       String @db.ObjectId
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
 
   product Product @relation(fields: [productId], references: [id])
-  debtor Debtor @relation(fields: [debitorId], references: [id])
+  debitor Debitor @relation(fields: [debitorId], references: [id])
 }
 

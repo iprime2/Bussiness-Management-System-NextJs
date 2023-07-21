@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server'
 
 export async function GET(req: Request) {
   try {
-    const debtors = await prismadb.debtor.findMany({})
+    const debitors = await prismadb.debitor.findMany({})
 
-    return NextResponse.json(debtors)
+    return NextResponse.json(debitors)
   } catch (error) {
-    console.log('[DEBTOR_GET]', error)
+    console.log('[Debitor_GET]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       return new NextResponse('All fields are required', { status: 400 })
     }
 
-    const debtor = await prismadb.debtor.create({
+    const debitor = await prismadb.debitor.create({
       data: {
         firmName,
         ownerName,
@@ -31,9 +31,9 @@ export async function POST(req: Request) {
       },
     })
 
-    return NextResponse.json(debtor)
+    return NextResponse.json(debitor)
   } catch (error: any) {
-    console.log('[DEBTOR_POST]', error)
+    console.log('[Debitor_POST]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

@@ -18,7 +18,7 @@ const Converter: FC<ConverterProps> = ({ id, data }) => {
     <FormContent
       initialData={data}
       type='Debitors'
-      urlType='debtors'
+      urlType='debitors'
       id={id}
       formType={DebitorsForm(data)}
       fieldArray={debitorFields}

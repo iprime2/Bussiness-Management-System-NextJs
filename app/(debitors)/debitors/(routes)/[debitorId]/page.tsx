@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { DebitorsProps } from '@/types'
 
-import { getDebtor } from '@/actions/getDebtor'
+import { getDebitor } from '@/actions/getDebitor'
 
 import Converter from './components/Converter'
 
@@ -11,9 +11,8 @@ interface DebitorPageProps {
 }
 
 const DebitorPage: FC<DebitorPageProps> = async ({ params }) => {
-  const debitor = await getDebtor(params.debitorId)
+  const debitor = await getDebitor(params.debitorId)
   const debitorId = params.debitorId
-  console.log(debitor)
 
   return (
     <div className='flex-col'>

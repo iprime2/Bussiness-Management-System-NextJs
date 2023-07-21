@@ -3,36 +3,36 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   req: Request,
-  { params }: { params: { debtorId: string } }
+  { params }: { params: { debitorId: string } }
 ) {
   try {
-    const { debtorId } = params
+    const { debitorId } = params
 
-    if (!debtorId) {
+    if (!debitorId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
-    const debtor = await prismadb.debtor.findUnique({
+    const debitor = await prismadb.debitor.findUnique({
       where: {
-        id: debtorId,
+        id: debitorId,
       },
     })
 
-    return NextResponse.json(debtor)
+    return NextResponse.json(debitor)
   } catch (error) {
-    console.log('[DEBTOR_GET]', error)
+    console.log('[Debitor_GET]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { debtorId: string } }
+  { params }: { params: { debitorId: string } }
 ) {
   try {
-    const { debtorId } = params
+    const { debitorId } = params
 
-    if (!debtorId) {
+    if (!debitorId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
@@ -43,9 +43,9 @@ export async function PATCH(
       return new NextResponse('All fields are required', { status: 400 })
     }
 
-    const debtor = await prismadb.debtor.update({
+    const debitor = await prismadb.debitor.update({
       where: {
-        id: debtorId,
+        id: debitorId,
       },
       data: {
         firmName,
@@ -56,33 +56,33 @@ export async function PATCH(
       },
     })
 
-    return NextResponse.json(debtor)
+    return NextResponse.json(debitor)
   } catch (error: any) {
-    console.log('[DEBTOR_PATCH]', error)
+    console.log('[Debitor_PATCH]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { debtorId: string } }
+  { params }: { params: { debitorId: string } }
 ) {
   try {
-    const { debtorId } = params
+    const { debitorId } = params
 
-    if (!debtorId) {
+    if (!debitorId) {
       return new NextResponse('ID is required', { status: 400 })
     }
 
-    const debtor = await prismadb.debtor.delete({
+    const debitor = await prismadb.debitor.delete({
       where: {
-        id: debtorId,
+        id: debitorId,
       },
     })
 
-    return NextResponse.json(debtor)
+    return NextResponse.json(debitor)
   } catch (error: any) {
-    console.log('[DEBTOR_DELETE]', error)
+    console.log('[Debitor_DELETE]', error)
     return new NextResponse('Internal error', { status: 500 })
   }
 }

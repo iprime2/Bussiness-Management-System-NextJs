@@ -18,6 +18,7 @@ import {
 import { CreditorsProps, DebitorsProps, ProductsProps } from '@/types'
 import { PurchasesColumnsProps } from '@/columns/purchasesColumn'
 import { SalesColumnsProps } from '@/columns/salesColumn'
+import { useEffect } from 'react'
 
 export function CreditorsForm(
   data: CreditorsProps
@@ -98,8 +99,8 @@ export function PurchasesForm(
         weight: 0,
         price: 0,
         pricePaid: 0,
-        totalAmount: 0,
         totalWeight: 0,
+        totalAmount: 0,
         paid: '',
         paidThrough: '',
       }
@@ -107,6 +108,12 @@ export function PurchasesForm(
     resolver: zodResolver(purchaseSchema),
     defaultValues,
   })
+
+  useEffect(() => {
+    const { pricePaid, totalWeight } = form.getValues()
+    const totalAmount = pricePaid * totalWeight
+    form.setValue('totalAmount', totalAmount)
+  }, [form.watch('pricePaid'), form.watch('totalWeight')])
 
   return form
 }

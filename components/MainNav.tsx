@@ -3,17 +3,13 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useParams, usePathname } from 'next/navigation'
-import { FC } from 'react'
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from '@/components/ui/menubar'
-import { Separator } from './ui/separator'
 import { Check, Menu } from 'lucide-react'
 
 const MainNav = ({

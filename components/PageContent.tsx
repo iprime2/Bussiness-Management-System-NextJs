@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Plus } from 'lucide-react'
 
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
-import { DebitorsColumnsProps } from '@/columns/debtorsColumn'
+import { DebitorsColumnsProps } from '@/columns/debitorsColumn'
 import { ProductsColumnsProps } from '@/columns/productsColumn'
 import { PurchasesColumnsProps } from '@/columns/purchasesColumn'
 
