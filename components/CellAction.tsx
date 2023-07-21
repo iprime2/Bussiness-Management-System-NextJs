@@ -20,9 +20,15 @@ import { ToastAction } from './ui/toast'
 import AlertModal from '@/components/modals/AlertModal'
 import { CreditorsColumnsProps } from '@/columns/creditorsColumn'
 import { DebitorsColumnsProps } from '@/columns/debitorsColumn'
+import { ProductsColumnsProps } from '@/columns/productsColumn'
+import { PurchasesColumnsProps } from '@/columns/purchasesColumn'
 
 interface CellActionProps {
-  data: CreditorsColumnsProps[] | DebitorsColumnsProps[]
+  data:
+    | CreditorsColumnsProps[]
+    | DebitorsColumnsProps[]
+    | ProductsColumnsProps[]
+    | PurchasesColumnsProps[]
   type: string
   apiUrl: string
 }

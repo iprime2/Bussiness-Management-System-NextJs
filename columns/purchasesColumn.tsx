@@ -82,7 +82,7 @@ export const PurchasesColumns: ColumnDef<PurchasesColumnsProps>[] = [
     header: 'Actions',
     id: 'actions',
     cell: ({ row }) => (
-      <CellAction type='products' apiUrl='products' data={row.original} />
+      <CellAction type='products' apiUrl='purchases' data={row.original} />
     ),
   },
 ]
