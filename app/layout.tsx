@@ -1,12 +1,15 @@
 import './globals.css'
+
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+
 import { Toaster } from '@/components/ui/toaster'
 import RegisterModal from '@/components/modals/RegisterModal'
 import LoginModal from '@/components/modals/LoginModal'
-import ClientOnly from '@/components/ClientOnly'
-import getCurrentUser from '@/actions/getCurrentuser'
 import Navbar from '@/components/Navbar'
+import getCurrentUser from '@/actions/getCurrentuser'
+import { ThemeProvider } from '@/components/ui/ThemeProvider'
+import { redirect } from 'next/navigation'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
@@ -25,13 +28,14 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <ClientOnly>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <RegisterModal />
           <LoginModal />
           <Toaster />
-          {user && <Navbar />}
-        </ClientOnly>
-        {children}
+          {<Navbar user={user} />}
+
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -8,6 +8,7 @@ import { PurchaseProps } from '@/types'
 import { format } from 'date-fns'
 import { getCreditor } from '@/actions/getCreditor'
 import { getProduct } from '@/actions/getProduct'
+import ClientOnly from '@/components/ClientOnly'
 
 interface PurchasePageProps {
   params: { purchaseId: string }
@@ -49,11 +50,13 @@ const PurchasePage: FC<PurchasePageProps> = async ({ params }) => {
     : null
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <Converter data={purchaseData as PurchaseProps} id={purchaseId} />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <Converter data={purchaseData as PurchaseProps} id={purchaseId} />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

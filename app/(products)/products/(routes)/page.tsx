@@ -6,6 +6,7 @@ import { getProducts } from '@/actions/getProducts'
 import { ProductsColumns, ProductsColumnsProps } from '@/columns/productsColumn'
 
 import PageContent from '@/components/PageContent'
+import ClientOnly from '@/components/ClientOnly'
 
 interface ProductsPageProps {}
 
@@ -21,18 +22,20 @@ const ProductsPage: FC<ProductsPageProps> = async ({}) => {
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }))
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <PageContent
-          title='Products'
-          description='Manage your products here!'
-          columns={ProductsColumns}
-          data={formattedProducts}
-          type='products'
-          searchKey='name'
-        />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <PageContent
+            title='Products'
+            description='Manage your products here!'
+            columns={ProductsColumns}
+            data={formattedProducts}
+            type='products'
+            searchKey='name'
+          />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

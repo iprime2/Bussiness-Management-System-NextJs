@@ -4,6 +4,7 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { X } from 'lucide-react'
 import { SignUpValueType } from '@/lib/schemas'
+import { Separator } from '../ui/separator'
 
 interface CustomModalProps {
   isOpen: boolean
@@ -56,7 +57,7 @@ const CustomModal: FC<CustomModalProps> = ({
             }
             ${showCustomModal ? 'opacity-100' : 'opacity-0'}`}
           >
-            <div className='translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
+            <div className='translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none dark:bg-slate-800'>
               {/* Header */}
               <div className='flex items-center p-6 rounded-t justify-center relative border-b-[1px]'>
                 <button

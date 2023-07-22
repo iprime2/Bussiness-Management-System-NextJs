@@ -10,6 +10,7 @@ import {
   PurchasesColumns,
   PurchasesColumnsProps,
 } from '@/columns/purchasesColumn'
+import ClientOnly from '@/components/ClientOnly'
 
 interface PurchasesPageProps {}
 
@@ -50,18 +51,20 @@ const PurchasesPage: React.FC<PurchasesPageProps> = async () => {
   )
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <PageContent
-          title='Purchases'
-          description='Manage your purchases here!'
-          columns={PurchasesColumns}
-          data={formattedPurchaseData}
-          type='purchases'
-          searchKey='firmName'
-        />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <PageContent
+            title='Purchases'
+            description='Manage your purchases here!'
+            columns={PurchasesColumns}
+            data={formattedPurchaseData}
+            type='purchases'
+            searchKey='firmName'
+          />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

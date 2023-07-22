@@ -1,3 +1,14 @@
+export type UserProps = {
+  id: string
+  name: string
+  email: string
+  image: string
+  password: string
+  isAdmin: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
 export interface CreditorsProps {
   id: string
   firmName: string

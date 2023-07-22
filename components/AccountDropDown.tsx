@@ -23,10 +23,10 @@ const AccountDropDown: FC<AccountDropDownProps> = ({}) => {
       <DropdownMenu>
         <DropdownMenuTrigger
           className='flex item-center border-slate-200
-        p-2 rounded-full cursor-pointer hover:bg-slate-100 transition duration-200 ease-in-out border'
+        p-2 rounded-full cursor-pointer hover:bg-slate-100 dark:hover:bg-gray-800 transition duration-200 ease-in-out border'
         >
           <Image
-            className='rounded-ful'
+            className='rounded-full'
             src={'/avatar.jpg'}
             alt='account'
             width={30}

@@ -8,6 +8,7 @@ import { DebitorsColumns } from '@/columns/debitorsColumn'
 import { getDebitors } from '@/actions/getDebitors'
 
 import PageContent from '@/components/PageContent'
+import ClientOnly from '@/components/ClientOnly'
 
 interface DebitorsPageProps {}
 
@@ -25,18 +26,20 @@ const DebitorsPage: FC<DebitorsPageProps> = async ({}) => {
   }))
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <PageContent
-          title='Debtiors'
-          description='Manage your Debitors'
-          data={formattedDebitors}
-          type='debitors'
-          columns={DebitorsColumns}
-          searchKey='firmName'
-        />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <PageContent
+            title='Debtiors'
+            description='Manage your Debitors'
+            data={formattedDebitors}
+            type='debitors'
+            columns={DebitorsColumns}
+            searchKey='firmName'
+          />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

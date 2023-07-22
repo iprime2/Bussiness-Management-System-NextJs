@@ -24,6 +24,8 @@ import { useRegisterModal } from '@/hooks/useRegisterModal'
 import { toast } from '../ui/use-toast'
 import { ToastAction } from '../ui/toast'
 import { useRouter } from 'next/navigation'
+import ClientOnly from '../ClientOnly'
+import { ClipLoader } from 'react-spinners'
 
 interface LoginModalProps {}
 
@@ -63,8 +65,8 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
       if (callback?.ok) {
         toast({ description: 'Logged In' })
         loginModal.onClose()
-        // router.refresh()
         router.push('/dashboard')
+        router.refresh()
       } else if (callback?.error) {
         console.log(callback)
         toast({
@@ -78,7 +80,7 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
   }
 
   const bodyContent = (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 bg-transparent'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -117,7 +119,15 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
           />
 
           <Button type='submit' className='w-full' disabled={loading}>
-            Log In
+            {loading ? (
+              <ClipLoader
+                color='#F9F6EE'
+                className='font-extrabold dark:text-primary'
+                size={22}
+              />
+            ) : (
+              'Log In'
+            )}
           </Button>
         </form>
       </Form>
@@ -146,8 +156,10 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
               text-neutral-800
               cursor-pointer 
               hover:underline
+              dark:text-slate-200
             '
           >
+            {'  '}
             Sign up
           </span>
         </p>
@@ -156,15 +168,17 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
   )
 
   return (
-    <CustomModal
-      title='Login'
-      disabled={loading}
-      onSubmit={onSubmit}
-      isOpen={loginModal.isOpen}
-      onClose={loginModal.onClose}
-      body={bodyContent}
-      footer={footerContent}
-    />
+    <ClientOnly>
+      <CustomModal
+        title='Login'
+        disabled={loading}
+        onSubmit={onSubmit}
+        isOpen={loginModal.isOpen}
+        onClose={loginModal.onClose}
+        body={bodyContent}
+        footer={footerContent}
+      />
+    </ClientOnly>
   )
 }
 

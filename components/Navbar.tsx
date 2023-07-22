@@ -1,20 +1,29 @@
 'use client'
 
 import { FC } from 'react'
+import { useTheme } from 'next-themes'
+
+import { UserProps } from '@/types'
+
 import MainNav from './MainNav'
 import AccountDropDown from './AccountDropDown'
+import LoginBtn from './LoginBtn'
+import { ThemeToggle } from './ui/ThemeToggle'
 
-interface NavbarProps {}
+interface NavbarProps {
+  user?: UserProps
+}
 
-const Navbar: FC<NavbarProps> = ({}) => {
+const Navbar: FC<NavbarProps> = ({ user }) => {
   return (
     <div className='border-b px-7 w-full py-3'>
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center gap-3 justify-between'>
+        <div>{user && <MainNav />}</div>
         <h1 className='text-2xl'>Bambam</h1>
-        <div>
-          <MainNav />
+        <div className='flex gap-4'>
+          <ThemeToggle />
+          {user ? <AccountDropDown /> : <LoginBtn />}
         </div>
-        <AccountDropDown />
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import {
   CreditorsColumns,
   CreditorsColumnsProps,
 } from '@/columns/creditorsColumn'
+import ClientOnly from '@/components/ClientOnly'
 
 interface CreditorsPageProps {}
 
@@ -25,18 +26,20 @@ const CreditorsPage: FC<CreditorsPageProps> = async ({}) => {
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }))
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <PageContent
-          title='Creditors'
-          description='Manage your creditors'
-          columns={CreditorsColumns}
-          data={formattedCreditors}
-          type='creditors'
-          searchKey='firmName'
-        />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <PageContent
+            title='Creditors'
+            description='Manage your creditors'
+            columns={CreditorsColumns}
+            data={formattedCreditors}
+            type='creditors'
+            searchKey='firmName'
+          />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

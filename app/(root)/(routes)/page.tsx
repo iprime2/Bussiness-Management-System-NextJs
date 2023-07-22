@@ -1,22 +1,18 @@
 'use client'
 
-import { useEffect } from 'react'
-
-import { useLoginModal } from '@/hooks/useLoginModal'
-import { useRegisterModal } from '@/hooks/useRegisterModal'
+import Heading from '@/components/ui/Heading'
+import ClientOnly from '@/components/ClientOnly'
 
 const SetupPage = () => {
-  const onOpen = useLoginModal((state) => state.onOpen)
-  const isOpen = useLoginModal((state) => state.isOpen)
-  const registerModal = useRegisterModal()
-
-  useEffect(() => {
-    if (!isOpen && !registerModal.isOpen) {
-      onOpen()
-    }
-  }, [isOpen, onOpen, registerModal.isOpen])
-
-  return null
+  return (
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <Heading title='Welcome' description='Please login to continue' />
+        </div>
+      </div>
+    </ClientOnly>
+  )
 }
 
 export default SetupPage

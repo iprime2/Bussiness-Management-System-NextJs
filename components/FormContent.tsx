@@ -49,6 +49,8 @@ import { Input } from '@/components/ui/input'
 import AlertModal from './modals/AlertModal'
 import { ToastAction } from './ui/toast'
 import { toast } from './ui/use-toast'
+import ClientOnly from './ClientOnly'
+import { ClipLoader } from 'react-spinners'
 
 interface FormContentProps {
   initialData:
@@ -222,7 +224,15 @@ const FormContent: FC<FormContentProps> = ({
             ))}
           </div>
           <Button disabled={loading} className='ml-auto' type='submit'>
-            {action}
+            {loading ? (
+              <ClipLoader
+                color='#F9F6EE'
+                className='font-extrabold'
+                size={22}
+              />
+            ) : (
+              action
+            )}
           </Button>
         </form>
       </Form>

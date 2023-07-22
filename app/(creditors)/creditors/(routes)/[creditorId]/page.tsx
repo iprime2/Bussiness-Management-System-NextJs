@@ -5,6 +5,7 @@ import Converter from './components/Converter'
 import { getCreditor } from '@/actions/getCreditor'
 
 import { CreditorsProps } from '@/types'
+import ClientOnly from '@/components/ClientOnly'
 
 interface CreditorPageProps {
   params: { creditorId: string }
@@ -15,11 +16,13 @@ const CreditorPage: FC<CreditorPageProps> = async ({ params }) => {
   const creditorId = params.creditorId
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <Converter data={creditor as CreditorsProps} id={creditorId} />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <Converter data={creditor as CreditorsProps} id={creditorId} />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 

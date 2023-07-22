@@ -23,6 +23,9 @@ import { useRegisterModal } from '@/hooks/useRegisterModal'
 import { useLoginModal } from '@/hooks/useLoginModal'
 import { toast } from '../ui/use-toast'
 import { ToastAction } from '../ui/toast'
+import { ClipLoader } from 'react-spinners'
+import ClientOnly from '../ClientOnly'
+import { Separator } from '../ui/separator'
 
 interface RegisterModalProps {}
 
@@ -145,7 +148,15 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
             )}
           />
           <Button type='submit' className='w-full' disabled={loading}>
-            Register
+            {loading ? (
+              <ClipLoader
+                color='#FFFFFFF'
+                className='font-extrabold dark:text-primary'
+                size={22}
+              />
+            ) : (
+              'Register'
+            )}
           </Button>
         </form>
       </Form>
@@ -154,7 +165,6 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
 
   const footerContent = (
     <div className='flex flex-col gap-4 mt-3'>
-      <hr />
       <div
         className='
           text-neutral-500 
@@ -174,8 +184,10 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
               text-neutral-800
               cursor-pointer 
               hover:underline
+              dark:text-slate-200
             '
           >
+            {'  '}
             Log in
           </span>
         </p>
@@ -184,15 +196,17 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
   )
 
   return (
-    <CustomModal
-      title='Sign Up'
-      disabled={loading}
-      onSubmit={onSubmit}
-      isOpen={registerModal.isOpen}
-      onClose={registerModal.onClose}
-      body={bodyContent}
-      footer={footerContent}
-    />
+    <ClientOnly>
+      <CustomModal
+        title='Sign Up'
+        disabled={loading}
+        onSubmit={onSubmit}
+        isOpen={registerModal.isOpen}
+        onClose={registerModal.onClose}
+        body={bodyContent}
+        footer={footerContent}
+      />
+    </ClientOnly>
   )
 }
 

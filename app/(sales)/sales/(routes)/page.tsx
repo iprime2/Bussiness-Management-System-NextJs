@@ -8,6 +8,7 @@ import { getDebitor } from '@/actions/getDebitor'
 import PageContent from '@/components/PageContent'
 
 import { SalesColumns, SalesColumnsProps } from '@/columns/salesColumn'
+import ClientOnly from '@/components/ClientOnly'
 
 interface SalesPageProps {}
 
@@ -48,18 +49,20 @@ const SalesPage: React.FC<SalesPageProps> = async () => {
   )
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <PageContent
-          title='Sales'
-          description='Manage your sales here!'
-          columns={SalesColumns}
-          data={formattedSalesData}
-          type='sales'
-          searchKey='firmName'
-        />
+    <ClientOnly>
+      <div className='flex-col'>
+        <div className='flex-1 space-y-4 p-8 pt-6'>
+          <PageContent
+            title='Sales'
+            description='Manage your sales here!'
+            columns={SalesColumns}
+            data={formattedSalesData}
+            type='sales'
+            searchKey='firmName'
+          />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
   )
 }
 
