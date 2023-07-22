@@ -10,11 +10,17 @@ import {
   PurchasesColumns,
   PurchasesColumnsProps,
 } from '@/columns/purchasesColumn'
-import ClientOnly from '@/components/ClientOnly'
+import getCurrentUser from '@/actions/getCurrentuser'
+import { redirect } from 'next/navigation'
 
 interface PurchasesPageProps {}
 
 const PurchasesPage: React.FC<PurchasesPageProps> = async () => {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    redirect('/')
+  }
   const purchase = await getPurchases()
 
   const getProductNames = async (id: string) => {
@@ -51,20 +57,18 @@ const PurchasesPage: React.FC<PurchasesPageProps> = async () => {
   )
 
   return (
-    <ClientOnly>
-      <div className='flex-col'>
-        <div className='flex-1 space-y-4 p-8 pt-6'>
-          <PageContent
-            title='Purchases'
-            description='Manage your purchases here!'
-            columns={PurchasesColumns}
-            data={formattedPurchaseData}
-            type='purchases'
-            searchKey='firmName'
-          />
-        </div>
+    <div className='flex-col'>
+      <div className='flex-1 space-y-4 p-8 pt-6'>
+        <PageContent
+          title='Purchases'
+          description='Manage your purchases here!'
+          columns={PurchasesColumns}
+          data={formattedPurchaseData}
+          type='purchases'
+          searchKey='firmName'
+        />
       </div>
-    </ClientOnly>
+    </div>
   )
 }
 

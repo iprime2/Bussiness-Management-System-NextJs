@@ -150,8 +150,8 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
           <Button type='submit' className='w-full' disabled={loading}>
             {loading ? (
               <ClipLoader
-                color='#FFFFFFF'
-                className='font-extrabold dark:text-primary'
+                className='font-extrabold text-gray-50 dark:text-slate-800'
+                z
                 size={22}
               />
             ) : (
@@ -196,17 +196,15 @@ const RegisterModal: FC<RegisterModalProps> = ({}) => {
   )
 
   return (
-    <ClientOnly>
-      <CustomModal
-        title='Sign Up'
-        disabled={loading}
-        onSubmit={onSubmit}
-        isOpen={registerModal.isOpen}
-        onClose={registerModal.onClose}
-        body={bodyContent}
-        footer={footerContent}
-      />
-    </ClientOnly>
+    <CustomModal
+      title='Sign Up'
+      disabled={loading}
+      onSubmit={onSubmit}
+      isOpen={registerModal.isOpen}
+      onClose={registerModal.onClose}
+      body={bodyContent}
+      footer={footerContent}
+    />
   )
 }
 

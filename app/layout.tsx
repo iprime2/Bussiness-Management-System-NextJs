@@ -9,7 +9,7 @@ import LoginModal from '@/components/modals/LoginModal'
 import Navbar from '@/components/Navbar'
 import getCurrentUser from '@/actions/getCurrentuser'
 import { ThemeProvider } from '@/components/ui/ThemeProvider'
-import { redirect } from 'next/navigation'
+import ClientOnly from '@/components/ClientOnly'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
@@ -28,14 +28,16 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <RegisterModal />
-          <LoginModal />
-          <Toaster />
-          {<Navbar user={user} />}
+        <ClientOnly>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <RegisterModal />
+            <LoginModal />
+            <Toaster />
+            {<Navbar user={user} />}
 
-          {children}
-        </ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </ClientOnly>
       </body>
     </html>
   )

@@ -8,13 +8,19 @@ import { PurchaseProps } from '@/types'
 import { format } from 'date-fns'
 import { getCreditor } from '@/actions/getCreditor'
 import { getProduct } from '@/actions/getProduct'
-import ClientOnly from '@/components/ClientOnly'
+import getCurrentUser from '@/actions/getCurrentuser'
+import { redirect } from 'next/navigation'
 
 interface PurchasePageProps {
   params: { purchaseId: string }
 }
 
 const PurchasePage: FC<PurchasePageProps> = async ({ params }) => {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    redirect('/')
+  }
   const purchase = await getPurchase(params.purchaseId)
   const purchaseId = params.purchaseId
 
@@ -50,13 +56,11 @@ const PurchasePage: FC<PurchasePageProps> = async ({ params }) => {
     : null
 
   return (
-    <ClientOnly>
-      <div className='flex-col'>
-        <div className='flex-1 space-y-4 p-8 pt-6'>
-          <Converter data={purchaseData as PurchaseProps} id={purchaseId} />
-        </div>
+    <div className='flex-col'>
+      <div className='flex-1 space-y-4 p-8 pt-6'>
+        <Converter data={purchaseData as PurchaseProps} id={purchaseId} />
       </div>
-    </ClientOnly>
+    </div>
   )
 }
 

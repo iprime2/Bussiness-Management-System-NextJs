@@ -226,8 +226,7 @@ const FormContent: FC<FormContentProps> = ({
           <Button disabled={loading} className='ml-auto' type='submit'>
             {loading ? (
               <ClipLoader
-                color='#F9F6EE'
-                className='font-extrabold'
+                className='font-extrabold text-gray-50 dark:text-slate-800'
                 size={22}
               />
             ) : (

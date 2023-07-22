@@ -40,14 +40,12 @@ const AccountDropDown: FC<AccountDropDownProps> = ({}) => {
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <p
-              className='cursor-pointer'
-              onClick={() => signOut({ callbackUrl: '/' })}
-            >
-              Sign Out
-            </p>
-          </DropdownMenuItem>
+          <p
+            className='cursor-pointer w-full'
+            onClick={() => signOut({ callbackUrl: '/' })}
+          >
+            <DropdownMenuItem>Sign out</DropdownMenuItem>
+          </p>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

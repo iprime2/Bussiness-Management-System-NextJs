@@ -8,13 +8,19 @@ import { getProduct } from '@/actions/getProduct'
 import { SalesProps } from '@/types'
 
 import Converter from './components/Converter'
-import ClientOnly from '@/components/ClientOnly'
+import getCurrentUser from '@/actions/getCurrentuser'
+import { redirect } from 'next/navigation'
 
 interface PurchasePageProps {
   params: { saleId: string }
 }
 
 const PurchasePage: FC<PurchasePageProps> = async ({ params }) => {
+  const user = await getCurrentUser()
+
+  if (!user) {
+    redirect('/')
+  }
   const purchase = await getSale(params.saleId)
   const saleId = params.saleId
 
@@ -50,13 +56,11 @@ const PurchasePage: FC<PurchasePageProps> = async ({ params }) => {
     : null
 
   return (
-    <ClientOnly>
-      <div className='flex-col'>
-        <div className='flex-1 space-y-4 p-8 pt-6'>
-          <Converter data={salesData as SalesProps} id={saleId} />
-        </div>
+    <div className='flex-col'>
+      <div className='flex-1 space-y-4 p-8 pt-6'>
+        <Converter data={salesData as SalesProps} id={saleId} />
       </div>
-    </ClientOnly>
+    </div>
   )
 }
 

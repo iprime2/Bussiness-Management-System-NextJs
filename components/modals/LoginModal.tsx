@@ -121,8 +121,7 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
           <Button type='submit' className='w-full' disabled={loading}>
             {loading ? (
               <ClipLoader
-                color='#F9F6EE'
-                className='font-extrabold dark:text-primary'
+                className='font-extrabold text-gray-50 dark:text-slate-800'
                 size={22}
               />
             ) : (
@@ -168,17 +167,15 @@ const LoginModal: FC<LoginModalProps> = ({}) => {
   )
 
   return (
-    <ClientOnly>
-      <CustomModal
-        title='Login'
-        disabled={loading}
-        onSubmit={onSubmit}
-        isOpen={loginModal.isOpen}
-        onClose={loginModal.onClose}
-        body={bodyContent}
-        footer={footerContent}
-      />
-    </ClientOnly>
+    <CustomModal
+      title='Login'
+      disabled={loading}
+      onSubmit={onSubmit}
+      isOpen={loginModal.isOpen}
+      onClose={loginModal.onClose}
+      body={bodyContent}
+      footer={footerContent}
+    />
   )
 }
 
