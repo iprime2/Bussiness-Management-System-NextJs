@@ -29,7 +29,7 @@ const RootPage = async () => {
 
       <div className='md:w-[60%] sm:w-full'>
         <Image
-          src='/dashboardImg.jpg'
+          src='/homeImg.jpg'
           className='object-cover mix-difference'
           width={900}
           height={1200}

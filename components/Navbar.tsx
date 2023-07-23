@@ -8,6 +8,7 @@ import MainNav from './MainNav'
 import AccountDropDown from './AccountDropDown'
 import LoginBtn from './LoginBtn'
 import { ThemeToggle } from './ui/ThemeToggle'
+import Image from 'next/image'
 
 interface NavbarProps {
   user?: UserProps
@@ -18,7 +19,9 @@ const Navbar: FC<NavbarProps> = ({ user }) => {
     <div className='border-b px-7 w-full py-3'>
       <div className='flex items-center gap-3 justify-between'>
         <div>{user && <MainNav />}</div>
-        <h1 className='text-2xl font-logo font-bold'>Bambam</h1>
+        <h1 className='text-2xl font-logo font-bold'>
+          <Image src='/bambamLogo.png' width={150} height={50} alt='logo' />
+        </h1>
         <div className='flex gap-4'>
           <ThemeToggle />
           {user ? <AccountDropDown /> : <LoginBtn />}
