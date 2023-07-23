@@ -1,8 +1,8 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import getCurrentUser from '@/actions/getCurrentuser'
-
-import Heading from '@/components/ui/Heading'
+import GetStarted from '@/components/GetStarted'
 
 const RootPage = async () => {
   const user = await getCurrentUser()
@@ -12,10 +12,29 @@ const RootPage = async () => {
   }
 
   return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <h1 className='text-5xl font-extrabold'>Welcome</h1>
-        <p className='text-lg font-medium'>Business Management System </p>
+    <div className='flex p-8 pt-6 gap-4 xl:flex-row md:flex-row flex-col '>
+      <div className='md:w-[40%] sm:w-full'>
+        <h1 className='xl:text-[82px] md:text-[68px] sm:text-[58px] text-[45px]  font-extrabold '>
+          Welcome
+        </h1>
+        <p className='xl:text-xl md:text-lg sm:text-sm text-justify font-medium'>
+          Optimize your business management with our integrated platform.
+          Streamline purchase, sale, client, stock, finance, and accounts for
+          seamless operations. Drive growth and maximize efficiency with our
+          comprehensive solutions.
+        </p>
+        <br />
+        <GetStarted />
+      </div>
+
+      <div className='md:w-[60%] sm:w-full'>
+        <Image
+          src='/dashboardImg.jpg'
+          className='object-cover mix-difference'
+          width={900}
+          height={1200}
+          alt='Homepage'
+        />
       </div>
     </div>
   )
