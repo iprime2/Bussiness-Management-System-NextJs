@@ -1,13 +1,14 @@
 # Full Stack Business Management System with Next.js 13, App Router, React, Shadcn UI, Tailwind, Prisma, NoSQL, MongoDB and NextAuth 2023
 
-#### https://bambam-bms-admin.vercel.app
+#### https://bambam-bms.vercel.app
 
 ### Features:
 
-- We will be using Shadcn UI for the Admin!
-- Our admin dashboard is going to serve as an Overview of your business
-- You will be able to create, update, and delete creditors, debtors, products, purchases, and sales!
-- You will be able to see graphs of your revenue, total revenue amount, sales count, etc.
+- I have used Shadcn UI for this project!
+- Our web app will serve as an Overview of your business.
+- You can create, update, and delete creditors, debtors, products, purchases, and sales!
+- You can see graphs of your revenue, total revenue amount, sales count, etc.
+- Maintain the product inventory.
 - NoSQL + Prisma + MongoDB
 
 ![Screenshot](demo.png)
